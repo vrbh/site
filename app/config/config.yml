@@ -78,4 +78,13 @@ fos_rest:
 
 sensio_framework_extra:
     view:    { annotations: false }
-    router:  { annotations: true }		
+    router:  { annotations: true }
+
+fos_oauth_server:
+    db_driver: orm       # Driver availables: orm, mongodb, or propel
+    client_class:        Vrbh\SiteBundle\Entity\Client
+    access_token_class:  Vrbh\SiteBundle\Entity\AccessToken
+    refresh_token_class: Vrbh\SiteBundle\Entity\RefreshToken
+    auth_code_class:     Vrbh\SiteBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_manager

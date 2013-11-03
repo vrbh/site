@@ -5,6 +5,7 @@
 /app/logs/*
 /vendor/
 /app/config/parameters.yml
+.idea/*
 
 #################
 ## Eclipse

@@ -3,8 +3,7 @@
 namespace Vrbh\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class DefaultController extends Controller
 {
@@ -14,14 +13,24 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-	
-		$user = $this->getUser();
-		
-		$orgs = $user->getOrgs();
-		$org = $orgs[0]->getOrganisation();
-		
-		
-		
-        return array('status'=> $orgs[0]->getType(), 'name' => $org->getName());
+
+        $user = $this->getUser();
+
+        $org = null;
+        $type = "" ;
+
+        try {
+            if ($user) {
+                $orgs = $user->getOrgs();
+                if (sizeof($orgs) > 0) {
+                    $type = $orgs[0]->getType();
+                    $org = $orgs[0]->getOrganisation()->getName();;
+                }
+            }
+        } catch (Exception $e) {
+
+        }
+
+        return array('status' => $type, 'name' => $org);
     }
 }
