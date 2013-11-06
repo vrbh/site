@@ -35,9 +35,13 @@ class ApiController extends Controller
 	
     /**
 	 * Get data from 1 user
-     * @Rest\View
+     *
+	 * @param integer $id user id
+	 *
+	 * @Rest\View
 	 * @Route("/api/user/{id}", requirements={"id" = "\d+"})
 	 * @Method({"GET"})
+	 * @return User requested user
 	 * @ApiDoc()	 
      */
     public function getAction($id)
@@ -56,6 +60,9 @@ class ApiController extends Controller
 	
     /**
 	 * Delete a user
+	 * 
+	 * @param integer $id user id
+	 *
      * @Rest\View(statusCode=204)
 	 * @Route("/api/user/{id}", requirements={"id" = "\d+"})
 	 * @Method({"DELETE"})

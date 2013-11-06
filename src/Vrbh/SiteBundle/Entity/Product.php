@@ -33,6 +33,33 @@ class Product
      * @ORM\OneToMany(targetEntity="Voorraad", mappedBy="product")
      */	
 	protected $voorraden;	
+	
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	protected $created;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	protected $updated;	
+	
+	/**
+	 * @ORM\PrePersist
+	 */
+	public function setCreatedAtValue()
+	{
+		$this->created = new \DateTime();
+		$this->updated = new \DateTime();
+	}	
+
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function setUpdatedAtValue()
+	{
+		$this->updated = new \DateTime();
+	}	
 
     public function __construct()
     {
@@ -95,5 +122,87 @@ class Product
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add voorraden
+     *
+     * @param \Vrbh\SiteBundle\Entity\Voorraad $voorraden
+     *
+     * @return Product
+     */
+    public function addVoorraden(\Vrbh\SiteBundle\Entity\Voorraad $voorraden)
+    {
+        $this->voorraden[] = $voorraden;
+    
+        return $this;
+    }
+
+    /**
+     * Remove voorraden
+     *
+     * @param \Vrbh\SiteBundle\Entity\Voorraad $voorraden
+     */
+    public function removeVoorraden(\Vrbh\SiteBundle\Entity\Voorraad $voorraden)
+    {
+        $this->voorraden->removeElement($voorraden);
+    }
+
+    /**
+     * Get voorraden
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVoorraden()
+    {
+        return $this->voorraden;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Product
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Product
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisations")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Organisation
 {
@@ -29,6 +30,15 @@ class Organisation
 	protected $products;
 	
 	
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orgsCreated")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+	protected $creator;
+	
+
+	
+	
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -38,8 +48,34 @@ class Organisation
     {
         $this->users = new ArrayCollection();
 		$this->products = new ArrayCollection();
-    }	
+    }
 
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	protected $created;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	protected $updated;	
+	
+	/**
+	 * @ORM\PrePersist
+	 */
+	public function setCreatedAtValue()
+	{
+		$this->created = new \DateTime();
+		$this->updated = new \DateTime();
+	}	
+
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function setUpdatedAtValue()
+	{
+		$this->updated = new \DateTime();
+	}		
 
     /**
      * Get id
@@ -138,5 +174,77 @@ class Organisation
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Organisation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Organisation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \Vrbh\SiteBundle\Entity\User $creator
+     *
+     * @return Organisation
+     */
+    public function setCreator(\Vrbh\SiteBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+    
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \Vrbh\SiteBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
     }
 }
