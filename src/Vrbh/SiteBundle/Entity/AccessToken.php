@@ -3,6 +3,8 @@ namespace Vrbh\SiteBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Model\ClientInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -40,11 +42,11 @@ class AccessToken extends BaseAccessToken
     /**
      * Set client
      *
-     * @param \Vrbh\SiteBundle\Entity\Client $client
+     * @param \FOS\OauthServerBundle\Model\ClientInterface $client
      *
      * @return AccessToken
      */
-    public function setClient(\FOS\OAuthServerBundle\Model\ClientInterface $client)
+    public function setClient(ClientInterface $client)
     {
         $this->client = $client;
     
@@ -64,11 +66,11 @@ class AccessToken extends BaseAccessToken
     /**
      * Set user
      *
-     * @param \Vrbh\SiteBundle\Entity\User $user
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
      *
      * @return AccessToken
      */
-    public function setUser(\Symfony\Component\Security\Core\User\UserInterface $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
     
