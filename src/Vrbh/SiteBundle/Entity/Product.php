@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
