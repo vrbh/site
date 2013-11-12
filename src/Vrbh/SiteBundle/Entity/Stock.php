@@ -1,7 +1,6 @@
 <?php
 namespace Vrbh\SiteBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="voorraad")
  * @ORM\HasLifecycleCallbacks()
  */
-class Voorraad
+class Stock
 {
     /**
      * @ORM\Id
@@ -19,12 +18,17 @@ class Voorraad
     protected $id;
 	
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="voorraden")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="stocks")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
-    protected $product;	
-	
-	/**
+    protected $product;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $amount;
+
+    /**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $created;
@@ -66,7 +70,7 @@ class Voorraad
      *
      * @param \Vrbh\SiteBundle\Entity\Product $product
      *
-     * @return Voorraad
+     * @return Stock
      */
     public function setProduct(\Vrbh\SiteBundle\Entity\Product $product = null)
     {
@@ -90,7 +94,7 @@ class Voorraad
      *
      * @param \DateTime $created
      *
-     * @return Voorraad
+     * @return Stock
      */
     public function setCreated($created)
     {
@@ -114,7 +118,7 @@ class Voorraad
      *
      * @param \DateTime $updated
      *
-     * @return Voorraad
+     * @return Stock
      */
     public function setUpdated($updated)
     {
@@ -131,5 +135,28 @@ class Voorraad
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     * @return Stock
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 }

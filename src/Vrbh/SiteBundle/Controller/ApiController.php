@@ -17,7 +17,27 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class ApiController extends Controller
 {
     /**
-	 * Receive all users that are registered
+     * Get all information about the logged in user.
+     * This information includes all organisations, which are required
+     * for getting stocks. All other API methods require a organisation id.
+     *
+     * @Rest\View
+     * @Route("/api/user/current")
+     * @Method({"GET"})
+     * @ApiDoc()
+     */
+    public function getCurrentUser()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if (!$user) {
+            return array('error', 'Not logged in?');
+        }
+
+    }
+
+    /**
+     * Receive all users that are registered
 	 * 
      * @Rest\View
 	 * @Route("/api/users")

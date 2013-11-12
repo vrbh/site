@@ -1,7 +1,6 @@
 <?php
 namespace Vrbh\SiteBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -28,14 +27,36 @@ class Product
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
-	protected $name;	
-	
+    protected $name;
+
     /**
-     * @ORM\OneToMany(targetEntity="Voorraad", mappedBy="product")
-     */	
-	protected $voorraden;	
-	
-	/**
+     * @ORM\Column(type="text", nullable=true);
+     *
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $orderNumber;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $ean;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Stock", mappedBy="product")
+     */
+    protected $stocks;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Stock")
+     * @ORM\JoinColumn(name="current_stock_id", referencedColumnName="id")
+     */
+    protected $currentStock;
+
+    /**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $created;
@@ -43,9 +64,19 @@ class Product
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
-	protected $updated;	
-	
-	/**
+    protected $updated;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true);
+     */
+    protected $stock_unit;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true);
+     */
+    protected $order_unit;
+
+    /**
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue()
@@ -64,9 +95,8 @@ class Product
 
     public function __construct()
     {
-        parent::__construct();
-        
-		$this->voorraden = new ArrayCollection();
+
+        $this->stocks = new ArrayCollection();
     }
 
     /**
@@ -82,10 +112,10 @@ class Product
     /**
      * Set organisation
      *
-     * @param \Vrbh\SiteBundle\Entity\Organisations $organisation
-     * @return Products
+     * @param \Vrbh\SiteBundle\Entity\Organisation $organisation
+     * @return Product
      */
-    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisations $organisation = null)
+    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisation $organisation = null)
     {
         $this->organisation = $organisation;
     
@@ -95,7 +125,7 @@ class Product
     /**
      * Get organisation
      *
-     * @return \Vrbh\SiteBundle\Entity\Organisations 
+     * @return \Vrbh\SiteBundle\Entity\Organisation
      */
     public function getOrganisation()
     {
@@ -106,7 +136,7 @@ class Product
      * Set name
      *
      * @param string $name
-     * @return Products
+     * @return Product
      */
     public function setName($name)
     {
@@ -126,37 +156,37 @@ class Product
     }
 
     /**
-     * Add voorraden
+     * Add stocks
      *
-     * @param \Vrbh\SiteBundle\Entity\Voorraad $voorraden
+     * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      *
      * @return Product
      */
-    public function addVoorraden(\Vrbh\SiteBundle\Entity\Voorraad $voorraden)
+    public function addStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
     {
-        $this->voorraden[] = $voorraden;
-    
+        $this->stocks[] = $stocks;
+
         return $this;
     }
 
     /**
-     * Remove voorraden
+     * Remove stocks
      *
-     * @param \Vrbh\SiteBundle\Entity\Voorraad $voorraden
+     * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      */
-    public function removeVoorraden(\Vrbh\SiteBundle\Entity\Voorraad $voorraden)
+    public function removeStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
     {
-        $this->voorraden->removeElement($voorraden);
+        $this->stocks->removeElement($stocks);
     }
 
     /**
-     * Get voorraden
+     * Get stocks
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getVoorraden()
+    public function getStocks()
     {
-        return $this->voorraden;
+        return $this->stocks;
     }
 
     /**
@@ -205,5 +235,166 @@ class Product
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set ean
+     *
+     * @param integer $ean
+     * @return Product
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+
+        return $this;
+    }
+
+    /**
+     * Get ean
+     *
+     * @return integer
+     */
+    public function getEan()
+    {
+        return $this->ean;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set orderNumber
+     *
+     * @param string $orderNumber
+     * @return Product
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * Set stock_unit
+     *
+     * @param integer $stockUnit
+     * @return Product
+     */
+    public function setStockUnit($stockUnit)
+    {
+        $this->stock_unit = $stockUnit;
+
+        return $this;
+    }
+
+    /**
+     * Get stock_unit
+     *
+     * @return integer
+     */
+    public function getStockUnit()
+    {
+        return $this->stock_unit;
+    }
+
+    /**
+     * Set order_unit
+     *
+     * @param integer $orderUnit
+     * @return Product
+     */
+    public function setOrderUnit($orderUnit)
+    {
+        $this->order_unit = $orderUnit;
+
+        return $this;
+    }
+
+    /**
+     * Get order_unit
+     *
+     * @return integer
+     */
+    public function getOrderUnit()
+    {
+        return $this->order_unit;
+    }
+
+    /**
+     * Add stocks
+     *
+     * @param \Vrbh\SiteBundle\Entity\Stock $stocks
+     * @return Product
+     */
+    public function addStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    {
+        $this->stocks[] = $stocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove stocks
+     *
+     * @param \Vrbh\SiteBundle\Entity\Stock $stocks
+     */
+    public function removeStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    {
+        $this->stocks->removeElement($stocks);
+    }
+
+    /**
+     * Set currentStock
+     *
+     * @param \Vrbh\SiteBundle\Entity\Stock $currentStock
+     * @return Product
+     */
+    public function setCurrentStock(\Vrbh\SiteBundle\Entity\Stock $currentStock = null)
+    {
+        $this->currentStock = $currentStock;
+
+        return $this;
+    }
+
+    /**
+     * Get currentStock
+     *
+     * @return \Vrbh\SiteBundle\Entity\Stock
+     */
+    public function getCurrentStock()
+    {
+        return $this->currentStock;
     }
 }

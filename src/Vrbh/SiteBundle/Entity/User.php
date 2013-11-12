@@ -61,6 +61,7 @@ class User extends BaseUser
         parent::__construct();
         
 		$this->orgs = new ArrayCollection();
+        $this->orgsCreated = new ArrayCollection();
     }
 
     /**

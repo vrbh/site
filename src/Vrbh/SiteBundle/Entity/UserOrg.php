@@ -1,7 +1,6 @@
 <?php
 namespace Vrbh\SiteBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -98,10 +97,10 @@ class UserOrg
     /**
      * Set organisation
      *
-     * @param \Vrbh\SiteBundle\Entity\Organisations $organisation
+     * @param \Vrbh\SiteBundle\Entity\Organisation $organisation
      * @return UserOrg
      */
-    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisations $organisation = null)
+    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisation $organisation = null)
     {
         $this->organisation = $organisation;
     
@@ -111,7 +110,7 @@ class UserOrg
     /**
      * Get organisation
      *
-     * @return \Vrbh\SiteBundle\Entity\Organisations 
+     * @return \Vrbh\SiteBundle\Entity\Organisation
      */
     public function getOrganisation()
     {

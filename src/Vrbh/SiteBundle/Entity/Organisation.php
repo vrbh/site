@@ -1,7 +1,6 @@
 <?php
 namespace Vrbh\SiteBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -91,7 +90,7 @@ class Organisation
      * Set name
      *
      * @param string $name
-     * @return Organisations
+     * @return Organisation
      */
     public function setName($name)
     {
@@ -114,7 +113,7 @@ class Organisation
      * Add users
      *
      * @param \Vrbh\SiteBundle\Entity\UserOrg $users
-     * @return Organisations
+     * @return Organisation
      */
     public function addUser(\Vrbh\SiteBundle\Entity\UserOrg $users)
     {
@@ -147,7 +146,7 @@ class Organisation
      * Add products
      *
      * @param \Vrbh\SiteBundle\Entity\Product $products
-     * @return Organisations
+     * @return Organisation
      */
     public function addProduct(\Vrbh\SiteBundle\Entity\Product $products)
     {
