@@ -4,11 +4,14 @@ namespace Vrbh\SiteBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -16,11 +19,13 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 	
     /**
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="user")
+     * @Expose
      */	
 	protected $orgs;	
 	
@@ -31,11 +36,13 @@ class User extends BaseUser
 	
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose
 	 */
 	protected $updated;	
 	

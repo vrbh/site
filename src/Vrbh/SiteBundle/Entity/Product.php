@@ -69,12 +69,22 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=true);
      */
-    protected $stock_unit;
+    protected $stockUnit;
 
     /**
      * @ORM\Column(type="integer", nullable=true);
      */
-    protected $order_unit;
+    protected $orderUnit;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $minStock;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $maxStock;
 
     /**
 	 * @ORM\PrePersist
@@ -314,7 +324,7 @@ class Product
      */
     public function setStockUnit($stockUnit)
     {
-        $this->stock_unit = $stockUnit;
+        $this->stockUnit = $stockUnit;
 
         return $this;
     }
@@ -326,7 +336,7 @@ class Product
      */
     public function getStockUnit()
     {
-        return $this->stock_unit;
+        return $this->stockUnit;
     }
 
     /**
@@ -337,7 +347,7 @@ class Product
      */
     public function setOrderUnit($orderUnit)
     {
-        $this->order_unit = $orderUnit;
+        $this->orderUnit = $orderUnit;
 
         return $this;
     }
@@ -349,7 +359,7 @@ class Product
      */
     public function getOrderUnit()
     {
-        return $this->order_unit;
+        return $this->orderUnit;
     }
 
     /**
@@ -396,5 +406,51 @@ class Product
     public function getCurrentStock()
     {
         return $this->currentStock;
+    }
+
+    /**
+     * Set minStock
+     *
+     * @param integer $minStock
+     * @return Product
+     */
+    public function setMinStock($minStock)
+    {
+        $this->minStock = $minStock;
+
+        return $this;
+    }
+
+    /**
+     * Get minStock
+     *
+     * @return integer 
+     */
+    public function getMinStock()
+    {
+        return $this->minStock;
+    }
+
+    /**
+     * Set maxStock
+     *
+     * @param integer $maxStock
+     * @return Product
+     */
+    public function setMaxStock($maxStock)
+    {
+        $this->maxStock = $maxStock;
+
+        return $this;
+    }
+
+    /**
+     * Get maxStock
+     *
+     * @return integer 
+     */
+    public function getMaxStock()
+    {
+        return $this->maxStock;
     }
 }

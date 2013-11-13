@@ -1,7 +1,10 @@
+{% extends '::base.html.twig' %}
+{% block body %}
 <div class="form">
     <form id="login" class="vertical" action="{{ path('oauth_check') }}" method="post">
         <div class="form_title">
-            OAuth Authorization
+            Please login before using OAuth. <br />
+            <a href="{{ path('fos_user_registration_register') }}">No account yet?</a>
         </div>
 
         {% if(error) %}
@@ -20,3 +23,4 @@
         </div>
     </form>
 </div>
+{% endblock %}

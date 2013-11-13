@@ -88,3 +88,10 @@ fos_oauth_server:
     auth_code_class:     Vrbh\SiteBundle\Entity\AuthCode
     service:
         user_provider: fos_user.user_manager
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: FOS\UserBundle
+                path: %kernel.root_dir%/serializer/FOSUB

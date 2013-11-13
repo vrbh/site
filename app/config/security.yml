@@ -12,14 +12,15 @@ security:
 
     firewalls:
         main:
-            pattern: ^/user
+            pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-                login_path: /user/login
-                check_path: /user/check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
             logout:       true
             anonymous:    true
+
         oauth_token:
             pattern:    ^/oauth/v2/token
             security:   false
@@ -45,3 +46,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/api/organisation/all, role: ROLE_ADMIN }
