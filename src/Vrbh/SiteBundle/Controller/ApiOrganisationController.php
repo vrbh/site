@@ -52,7 +52,7 @@ class ApiOrganisationController extends Controller{
      *
      * @param $id
      * @Rest\View
-     * @Route("/api/organisation/{id}/products, requirements={"id" = "\d+"})
+     * @Route("/api/organisation/{id}/products", requirements={"id" = "\d+"})
      * @Method({"GET"})
      * @throws NotFoundHttpException
      * @ApiDoc()
