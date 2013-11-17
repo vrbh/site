@@ -3,11 +3,13 @@ namespace Vrbh\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class Product
 {
@@ -15,6 +17,7 @@ class Product
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 	
@@ -26,22 +29,26 @@ class Product
 	
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Expose()
 	 */
     protected $name;
 
     /**
      * @ORM\Column(type="text", nullable=true);
+     * @Expose()
      *
      */
     protected $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Expose()
      */
     protected $orderNumber;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Expose()
      */
     protected $ean;
 
@@ -58,31 +65,37 @@ class Product
 
     /**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
     protected $updated;
 
     /**
-     * @ORM\Column(type="integer", nullable=true);
+     * @ORM\Column(type="string", length=255, nullable=true);
+     * @Expose()
      */
     protected $stockUnit;
 
     /**
-     * @ORM\Column(type="integer", nullable=true);
+     * @ORM\Column(type="string", length=255, nullable=true);
+     * @Expose()
      */
     protected $orderUnit;
 
     /**
      * @ORM\Column(type="integer")
+     * @Expose()
      */
     protected $minStock;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Expose()
      */
     protected $maxStock;
 
@@ -319,7 +332,7 @@ class Product
     /**
      * Set stock_unit
      *
-     * @param integer $stockUnit
+     * @param String $stockUnit
      * @return Product
      */
     public function setStockUnit($stockUnit)
@@ -332,7 +345,7 @@ class Product
     /**
      * Get stock_unit
      *
-     * @return integer
+     * @return String
      */
     public function getStockUnit()
     {
@@ -342,7 +355,7 @@ class Product
     /**
      * Set order_unit
      *
-     * @param integer $orderUnit
+     * @param String $orderUnit
      * @return Product
      */
     public function setOrderUnit($orderUnit)
@@ -355,7 +368,7 @@ class Product
     /**
      * Get order_unit
      *
-     * @return integer
+     * @return String
      */
     public function getOrderUnit()
     {

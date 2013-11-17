@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 
+use Vrbh\SiteBundle\Entity\Product;
 use Vrbh\SiteBundle\Entity\User;
 use Vrbh\SiteBundle\Entity\Organisation;
 
@@ -50,18 +51,19 @@ class ApiOrganisationController extends Controller{
     /**
      * Get all products from a specific organisation
      *
-     * @param $id
+     * @param $org
      * @Rest\View
-     * @Route("/api/organisation/{id}/products", requirements={"id" = "\d+"})
+     * @Route("/api/organisation/{org}/products", requirements={"org" = "\d+"}, name="get_products")
      * @Method({"GET"})
      * @throws NotFoundHttpException
      * @ApiDoc()
+     * @return products
      */
-    public function getOrganisationProductsAction($id)
+    public function getOrganisationProductsAction($org)
     {
         $org = $this->getDoctrine()
             ->getRepository('VrbhSiteBundle:Organisation')
-            ->find($id);
+            ->find($org);
 
         if (!$org instanceof Organisation) {
             throw new NotFoundHttpException('Organisation not found');
@@ -72,6 +74,30 @@ class ApiOrganisationController extends Controller{
             ->findByOrganisation($org);
 
         return array('products' => $products);
+    }
+
+    /**
+     * Create a new product for a organisation
+     *
+     * @param $org
+     * @Route("/api/organisation/{org}/products", requirements={"org" = "\d+"})
+     * @Method({"POST"})
+     * @ApiDoc()
+     * @throws NotFoundHttpException
+     * @return view
+     */
+    public function createNewProductAction($org)
+    {
+        $org = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->find($org);
+
+        if (!$org instanceof Organisation) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+        $prd = new Product();
+        $prd->setOrganisation($org);
+        return $this->createNewProduct($prd, true);
     }
 
     /**
@@ -114,10 +140,78 @@ class ApiOrganisationController extends Controller{
     public function createOrganisationAction()
     {
         $org = new Organisation();
-        return $this->processForm($org, true);
+        return $this->createNewOrganisation($org, true);
     }
 
-    private function processForm(Organisation $organisation, $new)
+
+    /**
+     * Create or update a new product
+     *
+     * @todo Move to use a type instead validating ourself.
+     * @param Product $product
+     * @param $new
+     * @return View in case of a error.
+     */
+    private function createNewProduct(Product $product, $new)
+    {
+        $statusCode = $new ? 201 : 204;
+
+        $error = array();
+
+        $request = $this->get('request');
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+        $orderNumber = $request->request->get('orderNumber');
+        $ean = $request->request->get('ean');
+        $stockUnit = $request->request->get('stockUnint');
+        $orderUnit = $request->request->get('orderUnit');
+        $minStock = $request->request->get('minStock');
+        $maxStock = $request->request->get('maxStock');
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if (empty($name))
+            $error[] = 'Name is empty';
+        if (empty($description))
+            $error[] = 'Description is empty';
+        if (empty($minStock))
+            $error[] = 'Min stock is empty';
+        if (empty($maxStock))
+            $error[] = 'Max stock is empty';
+
+        if (!sizeof($error))
+        {
+            $product->setName($name);
+            $product->setDescription($description);
+            $product->setOrderNumber($orderNumber);
+            $product->setEan($ean);
+            $product->setStockUnit($stockUnit);
+            $product->setOrderUnit($orderUnit);
+            $product->setMinStock($minStock);
+            $product->setMaxStock($maxStock);
+
+            $em = $this->container->get('doctrine')->getEntityManager();
+            $em->persist($product);
+
+            $response = new Response();
+            $response->setStatusCode($statusCode);
+
+            // set the `Location` header only when creating new resources
+            if (201 === $statusCode) {
+                $response->headers->set('Location',
+                    $this->generateUrl(
+                        'get_products', array('id' => $product->getOrganisation()->getId()),
+                        true // absolute
+                    )
+                );
+            }
+            return $response;
+
+        }
+        return View::create(array('error' => $error), 400);
+    }
+
+    private function createNewOrganisation(Organisation $organisation, $new)
     {
         $statusCode = $new ? 201 : 204;
 
@@ -167,6 +261,6 @@ class ApiOrganisationController extends Controller{
             return $response;
         }
 
-        return View::create(array('error' => 'Name is empty'), 400);
+        return View::create(array('error' => array('Name is empty')), 400);
     }
 } 
