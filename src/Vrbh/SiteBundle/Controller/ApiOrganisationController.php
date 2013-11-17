@@ -27,10 +27,12 @@ class ApiOrganisationController extends Controller{
     /**
      * Get organisation data
      * @Rest\View
+     * @param $id organisation id
      * @Route("/api/organisation/{id}", requirements={"id" = "\d+"}, name="get_organisation")
      * @Method({"GET"})
      * @throws NotFoundHttpException
      * @ApiDoc()
+     * @return organisation
      */
     public function getOrganisationAction($id)
     {
@@ -43,6 +45,33 @@ class ApiOrganisationController extends Controller{
         }
 
         return array('organisation' => $org);
+    }
+
+    /**
+     * Get all products from a specific organisation
+     *
+     * @param $id
+     * @Rest\View
+     * @Route("/api/organisation/{id}/products, requirements={"id" = "\d+"})
+     * @Method({"GET"})
+     * @throws NotFoundHttpException
+     * @ApiDoc()
+     */
+    public function getOrganisationProductsAction($id)
+    {
+        $org = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->find($id);
+
+        if (!$org instanceof Organisation) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        $products = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Product')
+            ->findByOrganisation($org);
+
+        return array('products' => $products);
     }
 
     /**

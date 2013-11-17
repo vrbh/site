@@ -5,10 +5,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisations")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class Organisation
 {
@@ -16,38 +20,43 @@ class Organisation
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 	
     /**
-     * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="organisation")
+     * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="organisation", cascade={"remove"})
      */	
 	protected $users;
 	
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation", cascade={"remove"})
      */	
 	protected $products;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orgsCreated")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Expose()
      */
 	protected $creator;
 	
 	/**
 	 * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Expose()
 	 */
 	protected $name;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
 	protected $updated;
 
