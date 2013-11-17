@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 {% block body %}
 Index page
-Status {{ status }}.
-Name {{ name }}.
+
+{{ render_esi(path('fos_user_security_login')) }}
 {% endblock %}

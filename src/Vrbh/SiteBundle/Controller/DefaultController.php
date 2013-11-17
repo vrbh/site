@@ -7,33 +7,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/")
-     * @Template()
      */
     public function indexAction()
     {
+        $response = new Response();
 
-        $user = $this->getUser();
+        $response->setPublic();
 
-        $org = null;
-        $type = "" ;
+        $response->setSharedMaxAge(600);
 
-        try {
-            if ($user) {
-                $orgs = $user->getOrgs();
-                if (sizeof($orgs) > 0) {
-                    $type = $orgs[0]->getType();
-                    $org = $orgs[0]->getOrganisation()->getName();;
-                }
-            }
-        } catch (Exception $e) {
-
-        }
-
-        return array('status' => $type, 'name' => $org);
+        return $this->render('VrbhSiteBundle:Default:index.html.twig', array(), $response);
     }
 }
