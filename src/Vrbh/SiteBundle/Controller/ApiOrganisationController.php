@@ -102,6 +102,7 @@ class ApiOrganisationController extends Controller{
         if (!empty($name_value)) {
             $organisation->setCreated($user);
             $organisation->setName($name_value);
+            $organisation->setCreator($user);
 
             $em = $this->container->get('doctrine')->getEntityManager();
 
