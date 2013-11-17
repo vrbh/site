@@ -98,7 +98,7 @@ class ApiOrganisationController extends Controller{
         $user = $this->container->get('security.context')->getToken()->getUser();
 
 
-        if (empty($name_value)) {
+        if (!empty($name_value)) {
             $organisation->setCreated($user);
             $organisation->setName($name_value);
 
