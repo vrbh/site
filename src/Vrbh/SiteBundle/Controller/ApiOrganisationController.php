@@ -21,7 +21,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Vrbh\SiteBundle\Entity\UserOrg;
-use Vrbh\SiteBundle\Form\OrganisationType;
 
 class ApiOrganisationController extends Controller{
     /**
@@ -92,14 +91,16 @@ class ApiOrganisationController extends Controller{
     {
         $statusCode = $new ? 201 : 204;
 
-        $form = $this->createForm(new OrganisationType(), $organisation);
-        $form->handleRequest($this->getRequest());
+
+        $request = $this->get('request');
+        $name_value = $request->request->get('name');
 
         $user = $this->container->get('security.context')->getToken()->getUser();
 
 
-        if ($form->isValid()) {
+        if (empty($name_value)) {
             $organisation->setCreated($user);
+            $organisation->setName($name_value);
 
             $em = $this->container->get('doctrine')->getEntityManager();
 
@@ -109,7 +110,7 @@ class ApiOrganisationController extends Controller{
             $userorg->setType("admin");
 
 
-            $organisation->save();
+            $em->persist($organisation);
 
             $em->persist($userorg);
 
@@ -135,6 +136,6 @@ class ApiOrganisationController extends Controller{
             return $response;
         }
 
-        return View::create($form, 400);
+        return View::create(array('error' => 'Name is empty'), 400);
     }
 } 
