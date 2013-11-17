@@ -93,7 +93,7 @@ class ApiOrganisationController extends Controller{
         $statusCode = $new ? 201 : 204;
 
         $form = $this->createForm(new OrganisationType(), $organisation);
-        $form->bind($this->getRequest());
+        $form->handleRequest($this->getRequest());
 
         $user = $this->container->get('security.context')->getToken()->getUser();
 
