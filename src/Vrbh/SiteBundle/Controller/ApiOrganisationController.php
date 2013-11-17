@@ -15,6 +15,7 @@ use Vrbh\SiteBundle\Entity\User;
 use Vrbh\SiteBundle\Entity\Organisation;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
