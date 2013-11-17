@@ -3,6 +3,7 @@ namespace Vrbh\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -27,27 +28,18 @@ class Organisation
      * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation")
      */	
 	protected $products;
-	
-	
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orgsCreated")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
 	protected $creator;
 	
-
-	
-	
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
 	 */
 	protected $name;
-	
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-		$this->products = new ArrayCollection();
-    }
 
 	/**
 	 * @ORM\Column(type="datetime")
@@ -57,8 +49,14 @@ class Organisation
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
-	protected $updated;	
-	
+	protected $updated;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
+
 	/**
 	 * @ORM\PrePersist
 	 */
