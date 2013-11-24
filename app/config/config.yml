@@ -21,6 +21,7 @@ framework:
     session:         ~
     fragments: { path: /_fragment }
     http_method_override: true
+    trusted_proxies:  [127.0.0.1]
 
 # Twig Configuration
 twig:
