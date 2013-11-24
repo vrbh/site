@@ -1,0 +1,13 @@
+<!-- ESI included from base, to sidebar -->
+{% if app.user %}
+    <h4 class="list-group-item" style="text-align: center">Organisations</h4>
+
+    {% for org in orgs %}
+        <a href="" class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
+    {% endfor %}
+
+    <a href="" class="list-group-item">Create new organisation</a>
+{% else %}
+    <span class="list-group-item">Not logged in?</span>
+{% endif %}
+<!-- End ESI include -->
