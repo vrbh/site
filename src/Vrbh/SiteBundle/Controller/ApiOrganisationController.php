@@ -88,6 +88,31 @@ class ApiOrganisationController extends Controller{
      */
     public function createNewProductAction($org)
     {
+        return $this->createNewPrd($org);
+    }
+
+    /**
+     * Create a new product via the local API for a organisation
+     *
+     * @Route("/internal/api/{org}products", requirements={"org" = "\d+"})
+     * @METHOD({"POST"})
+     * @param $org
+     * @return View
+     * @throws NotFoundHttpException
+     */
+    public function createNewLocalProductAction($org)
+    {
+        return $this->createNewPrd($org);
+    }
+
+
+    /**
+     * @param $org
+     * @return View
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function createNewPrd($org)
+    {
         $org = $this->getDoctrine()
             ->getRepository('VrbhSiteBundle:Organisation')
             ->find($org);
@@ -99,6 +124,8 @@ class ApiOrganisationController extends Controller{
         $prd->setOrganisation($org);
         return $this->createNewProduct($prd, true);
     }
+
+
 
     /**
      * Get all organisations. This requires ROLE_ADMIN.
@@ -138,6 +165,17 @@ class ApiOrganisationController extends Controller{
      * @ApiDoc()
      */
     public function createOrganisationAction()
+    {
+        $org = new Organisation();
+        return $this->createNewOrganisation($org, true);
+    }
+
+    /**
+     * Create a new organisation from the website
+     * @Route("/internal/api/organisation", name="createOrg")
+     * @Method({"POST"})
+     */
+    public function createLocalOrganisationAction()
     {
         $org = new Organisation();
         return $this->createNewOrganisation($org, true);
