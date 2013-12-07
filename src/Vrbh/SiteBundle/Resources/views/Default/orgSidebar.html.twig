@@ -1,16 +1,19 @@
 <!-- ESI included from base, to sidebar -->
 {% if app.user %}
-    <h4 class="list-group-item" style="text-align: center">Organisations</h4>
-        {% for org in orgs %}
-            <a href="" data-org-select="select-org" data-org-id="{{ org.id }}" class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
-        {% else %}
-            <span class="list-group-item">No organisations yet.</span>
-        {% endfor %}
-    <span class="list-group-item" id="add-org" style="text-align: center">
+    <h4 class="list-group-item">Organisations</h4>
+    <span class="list-group-item" id="add-org">
     <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewOrg">
         Create new organisation
     </button></span>
     <script src="{{ asset('/bundles/vrbhsite/org.js') }}" type="text/javascript"></script>
+
+    {% for org in orgs %}
+        <a href="" data-org-select="select-org" data-org-id="{{ org.id }}"
+           class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
+    {% else %}
+        <span class="list-group-item">No organisations yet.</span>
+    {% endfor %}
+
 {% else %}
     <span class="list-group-item">Not logged in?</span>
 {% endif %}

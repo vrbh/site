@@ -21,8 +21,7 @@ $(document).ready(function() {
         $('[data-save-state=create-new-org]').attr('disabled', 'disabled');
         $('[data-save-state=create-new-org-cancel]').attr('disabled', 'disabled');
 
-        removeDisabled = function()
-        {
+        removeDisabledOrg = function () {
             $('[data-save-state=create-new-org]').removeAttr('disabled');
             $('[data-save-state=create-new-org-cancel]').removeAttr('disabled');
         }
@@ -31,7 +30,7 @@ $(document).ready(function() {
         {
             $('#createNewOrg').modal('hide');
 
-            removeDisabled();
+            removeDisabledOrg();
         }
 
         var name = $('[data-save-state=create-new-org-name]').val();
@@ -41,7 +40,7 @@ $(document).ready(function() {
             $("#name-error").show();
 
             setTimeout(function() { $("#name-error").hide(); }, 2000);
-            removeDisabled();
+            removeDisabledOrg();
         }
         else
         {

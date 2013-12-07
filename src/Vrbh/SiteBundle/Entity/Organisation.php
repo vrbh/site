@@ -94,8 +94,7 @@ class Organisation
         $found = false;
         foreach ($this->getUsers() as $usr)
         {
-            if ($usr->getId() == $user->getId())
-            {
+            if ($usr->getUser()->getId() == $user->getId()) {
                 $found = true;
             }
         }

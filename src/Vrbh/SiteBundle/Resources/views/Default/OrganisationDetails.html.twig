@@ -1,9 +1,82 @@
 {% extends '::base.html.twig' %}
+{% block title %}Manage organisation || {{ org.name }}{% endblock %}
 {% block body %}
-    {% if app.user %}
-    {% else %}
+    {% for product in org.products %}
+        {{ product.name }}
+    {% endfor %}
+{% endblock %}
 
-    {% endif %}
+{% block sidebar %}
+    </div>
+    <div class="list-group">
+    <h4 class="list-group-item">Products</h4>
+    <span class="list-group-item" id="add-product">
+    <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewProduct">
+        Add new product
+    </button></span>
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('/bundles/vrbhsite/products.js') }}" type="text/javascript"></script>
+    {% endblock %}
+    <a class="list-group-item">Number of products: {{ org.products|length }}</a>
 
 
+    <div class="modal fade" id="createNewProduct" tabindex="-1" role="dialog" aria-labelledby="CreateNewProduct"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">New product</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Create a new product, linked to the current organisation. All fields are required.</p>
+
+                    <p>
+                        <span id="name-error" class="error">The name parameter is required.</span>
+                        <input type="text" data-save-state="create-new-product-name" required="required"
+                               class="form-control" placeholder="Product name"/>
+                        <span id="description-error" class="error">The description parameter is required.</span>
+                        <textarea data-save-state="create-new-product-description" required="required"
+                                  class="form-control" placeholder="Description"></textarea>
+                        <span id="stockunit-error" class="error" style>The stock unit parameter is required.</span>
+                        <select id="stock-unit" required="required" data-save-state="create-new-product-stock-unit"
+                                class="form-control">
+                            <option>stock unit</option>
+                            <option>1</option>
+                            <option>24 (Crate)</option>
+                            <option>box</option>
+                            <option>bread</option>
+                        </select>
+                        <span id="stockunit-error" class="error">The stock unit parameter is required.</span>
+                        <select id="order-unit" data-save-state="create-new-product-order-unit" required="required"
+                                class="form-control">
+                            <option>order unit</option>
+                            <option>1</option>
+                            <option>24 (Crate)</option>
+                            <option>box</option>
+                            <option>bread</option>
+                        </select>
+                        <span id="min-stock-error" class="error">The minimum stock parameter is required.</span>
+                        <input type="number" required="required" class="form-control" placeholder="Minimum stock"
+                               data-save-state="create-new-product-min-stock"/>
+                        <span id="max-stock-error" class="error">The maximum stock parameter is required.</span>
+                        <input type="number" required="required" class="form-control" placeholder="Maximum stock"
+                               data-save-state="create-new-product-max-stock"/>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
+                            data-dismiss="modal">Close
+                    </button>
+                    <button type="button" class="btn btn-primary" data-save-state="create-new-product">Save changes
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 {% endblock %}
