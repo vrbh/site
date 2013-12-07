@@ -61,4 +61,12 @@ class DefaultController extends Controller
 
         return $this->render('VrbhSiteBundle:Default:orgSidebar.html.twig', array('orgs' => $user->getOrgs()), $response);
     }
+
+    /**
+     * @Route("/organisation/{id}, name="orglist", requirements={"id" = "\d+"})
+     */
+    public function listOrganisationDataAction($id)
+    {
+
+    }
 }

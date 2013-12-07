@@ -1,12 +1,12 @@
 <!-- ESI included from base, to sidebar -->
 {% if app.user %}
     <h4 class="list-group-item" style="text-align: center">Organisations</h4>
-    <span id="org-list">
         {% for org in orgs %}
-            <a href="" class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
+            <a href="" data-org-select="select-org" data-org-id="{{ org.id }}" class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
+        {% else %}
+            <span class="list-group-item">No organisations yet.</span>
         {% endfor %}
-    </span>
-    <span class="list-group-item" style="text-align: center">
+    <span class="list-group-item" id="add-org" style="text-align: center">
     <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewOrg">
         Create new organisation
     </button></span>

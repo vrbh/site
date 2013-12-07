@@ -43,3 +43,8 @@ footer {
         width: 50%; /* 6 columns */
     }
 }
+
+.list-group-item
+{
+    text-align: center;
+}

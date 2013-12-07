@@ -1,4 +1,17 @@
 $(document).ready(function() {
+    $('[data-org-select=select-org]').click(function(){
+        clickOrg(this);
+        return false;
+    });
+
+    var clickOrg = function(click)
+    {
+        var id = $(click).attr('data-org-id');
+
+        console.log("Going to id " + id);
+    }
+
+
     $('[data-save-state=create-new-org]').click(function() {
 
         $('[data-save-state=create-new-org]').attr('disabled', 'disabled');
@@ -34,11 +47,18 @@ $(document).ready(function() {
                 data: {
                     name: name
                 },
-                success: function()
+                success: function(data, textStatus, resp)
                 {
+                    var id = resp.getResponseHeader("X-new-id");
                     hideCreateNewOrg();
 
-                    $("#org-list").append($("<a class='list-group-item'>" + name + "</a>"));
+                    var el = $("<a href='#' data-org-select='select-org' data-org-id='" + id + "' class='list-group-item'>" + name + "</a>");
+                    el.click(function()
+                    {
+                        clickOrg(this);
+                        return false;
+                    });
+                    $("#add-org").parent().append(el);
                 }
             });
         }

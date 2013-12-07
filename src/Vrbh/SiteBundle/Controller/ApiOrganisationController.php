@@ -236,9 +236,10 @@ class ApiOrganisationController extends Controller{
 
             // set the `Location` header only when creating new resources
             if (201 === $statusCode) {
+                $response->headers->set('X-new-id', $product->getId());
                 $response->headers->set('Location',
                     $this->generateUrl(
-                        'get_products', array('id' => $product->getOrganisation()->getId()),
+                        'get_products', array('id' => $product->getId()),
                         true // absolute
                     )
                 );
@@ -288,6 +289,7 @@ class ApiOrganisationController extends Controller{
 
             // set the `Location` header only when creating new resources
             if (201 === $statusCode) {
+                $response->headers->set('X-new-id', $organisation->getId());
                 $response->headers->set('Location',
                     $this->generateUrl(
                         'get_organisation', array('id' => $organisation->getId()),
