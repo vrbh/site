@@ -6,8 +6,34 @@
         <a href="" class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
     {% endfor %}
 
-    <a href="" class="list-group-item">Create new organisation</a>
+    <span class="list-group-item" style="text-align: center">
+    <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewOrg">
+        Create new organisation
+    </button></span>
 {% else %}
     <span class="list-group-item">Not logged in?</span>
 {% endif %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="createNewOrg" tabindex="-1" role="dialog" aria-labelledby="CreateNewOrg" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-save-state="create-new-org-cancel" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New organisation</h4>
+            </div>
+            <div class="modal-body">
+
+                <p>Create a new organisation. You will be assigned as the administrator of the specific organisation.
+                    <input type="text" data-save-state="create-new-org-name" required="required" class="form-control" placeholder="Organisation name" />
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-save-state="create-new-org-cancel" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-save-state="create-new-org">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- End ESI include -->
