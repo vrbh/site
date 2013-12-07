@@ -94,7 +94,7 @@ class ApiOrganisationController extends Controller{
     /**
      * Create a new product via the local API for a organisation
      *
-     * @Route("/internal/api/{org}products", requirements={"org" = "\d+"})
+     * @Route("/internal/api/{org}/products", requirements={"org" = "\d+"})
      * @METHOD({"POST"})
      * @param $org
      * @return View

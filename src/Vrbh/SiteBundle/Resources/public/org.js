@@ -21,12 +21,26 @@ $(document).ready(function() {
 
         if (!name)
         {
+            $("#name-error").show();
 
+            setTimeout(function() { $("#name-error").hide(); }, 2000);
             removeDisabled();
         }
         else
         {
+            $.ajax({
+                type: "POST",
+                url: createOrg,
+                data: {
+                    name: name
+                },
+                success: function()
+                {
+                    hideCreateNewOrg();
 
+                    $("#org-list").append($("<a class='list-group-item'>" + name + "</a>"));
+                }
+            });
         }
     });
 });
