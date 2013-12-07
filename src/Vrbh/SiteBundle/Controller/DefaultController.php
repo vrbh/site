@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Vrbh\SiteBundle\Entity\Organisation;
 
 class DefaultController extends Controller
 {
@@ -18,17 +20,16 @@ class DefaultController extends Controller
 
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        if (!$user)
-        {
+        if (!$user) {
             $response->setPublic();
             $response->setSharedMaxAge(600);
-        }
-        else{
+        } else {
             $response->setPrivate();
             $response->setMaxAge(600);
         }
         return $response;
     }
+
     /**
      * @Route("/", name="index")
      */
@@ -36,11 +37,12 @@ class DefaultController extends Controller
     {
         return $this->render('VrbhSiteBundle:Default:index.html.twig', array(
             'jumbo' => true,
-            'jumbo_url'     => $this->get('router')->generate('about'),
-            'jumbo_title'   => 'Trying to get your stock in control?',
-            'jumbo_text'    => 'Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.',
+            'jumbo_url' => $this->get('router')->generate('about'),
+            'jumbo_title' => 'Trying to get your stock in control?',
+            'jumbo_text' => 'Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.',
         ), $this->createResponse());
     }
+
     /**
      * @Route("/about", name="about")
      */
@@ -63,10 +65,31 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/organisation/{id}, name="orglist", requirements={"id" = "\d+"})
+     * @Route("/organisation/{id}", name="orglist", requirements={"id" = "\d+"})
      */
     public function listOrganisationDataAction($id)
     {
+        $response = new Response();
+        $response->setPrivate(true);
 
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $org = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->find($id);
+
+        if (!$org instanceof Organisation) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        if (!$org->checkAllowed($user)) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+
+        return $this->render('VrbhSiteBundle:Default:OrganisationDetails.html.twig', array('jumbo' => true,
+            'jumbo_title' => $org->getName(),
+            'jumbo_text' => '',
+            'org' => $org), $response);
     }
 }

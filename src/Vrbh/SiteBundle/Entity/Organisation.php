@@ -81,7 +81,26 @@ class Organisation
 	public function setUpdatedAtValue()
 	{
 		$this->updated = new \DateTime();
-	}		
+	}
+
+
+    /**
+     * Check if a user is allowed to access this org.
+     * @param User $user
+     * @return bool
+     */
+    public function checkAllowed(User $user)
+    {
+        $found = false;
+        foreach ($this->getUsers() as $usr)
+        {
+            if ($usr->getId() == $user->getId())
+            {
+                $found = true;
+            }
+        }
+        return $found;
+    }
 
     /**
      * Get id

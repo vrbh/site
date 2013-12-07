@@ -9,6 +9,10 @@ $(document).ready(function() {
         var id = $(click).attr('data-org-id');
 
         console.log("Going to id " + id);
+
+        var loc = goToOrg.replace("0", id);
+
+        location.href=loc;
     }
 
 

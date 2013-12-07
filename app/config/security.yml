@@ -48,3 +48,4 @@ security:
         - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
         - { path: ^/api/organisation/all, role: ROLE_ADMIN }
         - { path: ^/internal, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/organisation, roles: [ IS_AUTHENTICATED_FULLY ]}
