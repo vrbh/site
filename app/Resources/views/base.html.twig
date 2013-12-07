@@ -22,6 +22,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
+
+        <!-- Can't move jquery to the end, due to JS files being used in includes via ESI. -->
+        <script src="//code.jquery.com/jquery.js"></script>
         {% block stylesheets %}
             <link href="{{ asset('/bundles/vrbhsite/main.css') }}" rel="stylesheet" />
         {% endblock %}
@@ -95,7 +98,6 @@
             <footer>Footer</footer>
         </div>
 
-        <script src="//code.jquery.com/jquery.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
