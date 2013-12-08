@@ -87,7 +87,7 @@ class User extends BaseUser
      * @param \Vrbh\SiteBundle\Entity\UserOrg $orgs
      * @return User
      */
-    public function addOrg(\Vrbh\SiteBundle\Entity\UserOrg $orgs)
+    public function addOrg(UserOrg $orgs)
     {
         $this->orgs[] = $orgs;
     
@@ -99,7 +99,7 @@ class User extends BaseUser
      *
      * @param \Vrbh\SiteBundle\Entity\UserOrg $orgs
      */
-    public function removeOrg(\Vrbh\SiteBundle\Entity\UserOrg $orgs)
+    public function removeOrg(UserOrg $orgs)
     {
         $this->orgs->removeElement($orgs);
     }
@@ -121,7 +121,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addOrgsCreated(\Vrbh\SiteBundle\Entity\Organisation $orgsCreated)
+    public function addOrgsCreated(\Organisation $orgsCreated)
     {
         $this->orgsCreated[] = $orgsCreated;
     
@@ -133,7 +133,7 @@ class User extends BaseUser
      *
      * @param \Vrbh\SiteBundle\Entity\Organisation $orgsCreated
      */
-    public function removeOrgsCreated(\Vrbh\SiteBundle\Entity\Organisation $orgsCreated)
+    public function removeOrgsCreated(Organisation $orgsCreated)
     {
         $this->orgsCreated->removeElement($orgsCreated);
     }

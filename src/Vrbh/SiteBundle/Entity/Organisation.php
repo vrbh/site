@@ -140,7 +140,7 @@ class Organisation
      * @param \Vrbh\SiteBundle\Entity\UserOrg $users
      * @return Organisation
      */
-    public function addUser(\Vrbh\SiteBundle\Entity\UserOrg $users)
+    public function addUser(UserOrg $users)
     {
         $this->users[] = $users;
     
@@ -152,7 +152,7 @@ class Organisation
      *
      * @param \Vrbh\SiteBundle\Entity\UserOrg $users
      */
-    public function removeUser(\Vrbh\SiteBundle\Entity\UserOrg $users)
+    public function removeUser(UserOrg $users)
     {
         $this->users->removeElement($users);
     }
@@ -173,7 +173,7 @@ class Organisation
      * @param \Vrbh\SiteBundle\Entity\Product $products
      * @return Organisation
      */
-    public function addProduct(\Vrbh\SiteBundle\Entity\Product $products)
+    public function addProduct(Product $products)
     {
         $this->products[] = $products;
     
@@ -185,7 +185,7 @@ class Organisation
      *
      * @param \Vrbh\SiteBundle\Entity\Product $products
      */
-    public function removeProduct(\Vrbh\SiteBundle\Entity\Product $products)
+    public function removeProduct(Product $products)
     {
         $this->products->removeElement($products);
     }
@@ -255,7 +255,7 @@ class Organisation
      *
      * @return Organisation
      */
-    public function setCreator(\Vrbh\SiteBundle\Entity\User $creator = null)
+    public function setCreator(User $creator = null)
     {
         $this->creator = $creator;
     

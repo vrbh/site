@@ -2,6 +2,8 @@
 namespace Vrbh\SiteBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
+use FOS\OAuthServerBundle\Model\ClientInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,11 +70,11 @@ class AuthCode extends BaseAuthCode
     /**
      * Set client
      *
-     * @param \Vrbh\SiteBundle\Entity\Client $client
+     * @param \FOS\OAuthServerBundle\Model\ClientInterface $client
      *
      * @return AuthCode
      */
-    public function setClient(\FOS\OAuthServerBundle\Model\ClientInterface $client)
+    public function setClient(ClientInterface $client)
     {
         $this->client = $client;
     
@@ -92,11 +94,11 @@ class AuthCode extends BaseAuthCode
     /**
      * Set user
      *
-     * @param \Vrbh\SiteBundle\Entity\User $user
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
      *
      * @return AuthCode
      */
-    public function setUser(\Symfony\Component\Security\Core\User\UserInterface $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
     

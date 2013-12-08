@@ -10,10 +10,8 @@ $(document).ready(function() {
 
         console.log("Going to id " + id);
 
-        var loc = goToOrg.replace("0", id);
-
-        location.href=loc;
-    }
+        location.href = goToOrg.replace("0", id);
+    };
 
 
     $('[data-save-state=create-new-org]').click(function() {
@@ -21,17 +19,17 @@ $(document).ready(function() {
         $('[data-save-state=create-new-org]').attr('disabled', 'disabled');
         $('[data-save-state=create-new-org-cancel]').attr('disabled', 'disabled');
 
-        removeDisabledOrg = function () {
+        var removeDisabledOrg = function () {
             $('[data-save-state=create-new-org]').removeAttr('disabled');
             $('[data-save-state=create-new-org-cancel]').removeAttr('disabled');
-        }
+        };
 
-        hideCreateNewOrg = function()
+        var hideCreateNewOrg = function()
         {
             $('#createNewOrg').modal('hide');
 
             removeDisabledOrg();
-        }
+        };
 
         var name = $('[data-save-state=create-new-org-name]').val();
 

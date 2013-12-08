@@ -100,7 +100,7 @@ class UserOrg
      * @param \Vrbh\SiteBundle\Entity\Organisation $organisation
      * @return UserOrg
      */
-    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisation $organisation = null)
+    public function setOrganisation(Organisation $organisation = null)
     {
         $this->organisation = $organisation;
     
@@ -123,7 +123,7 @@ class UserOrg
      * @param \Vrbh\SiteBundle\Entity\User $user
      * @return UserOrg
      */
-    public function setUser(\Vrbh\SiteBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
     

@@ -37,7 +37,7 @@ $(document).ready(function () {
         $('[data-new-stock-error=' + id + ']').hide(); // Make sure the error is hidden when closing the field ;).
 
         currentItem = null;
-    }
+    };
 
     $('[data-save-state=save-current-product]').click(function(){
         if (currentItem == null)
@@ -73,12 +73,12 @@ $(document).ready(function () {
         var removeDisabledProduct = function () {
             $('[data-save-state=create-product-org]').removeAttr('disabled');
             $('[data-save-state=create-new-product-cancel]').removeAttr('disabled');
-        }
+        };
         var hideCreateNewProduct = function () {
             $('#createNewProduct').modal('hide');
 
             removeDisabledProduct();
-        }
+        };
 
         var name = $('[data-save-state=create-new-product-name]').val();
         var desc = $('[data-save-state=create-new-product-description]').val();
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 $(id).hide();
             }, 5000);
             error = true;
-        }
+        };
 
         var error = false;
         if (!name) {
@@ -151,6 +151,7 @@ $(document).ready(function () {
                     }
 
                     hideCreateNewProduct();
+                    //noinspection SillyAssignmentJS
                     location.href = location.href;
                 }
             });

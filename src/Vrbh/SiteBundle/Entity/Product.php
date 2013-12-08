@@ -138,7 +138,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Organisation $organisation
      * @return Product
      */
-    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisation $organisation = null)
+    public function setOrganisation(Organisation $organisation = null)
     {
         $this->organisation = $organisation;
     
@@ -185,7 +185,7 @@ class Product
      *
      * @return Product
      */
-    public function addStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function addStocks(Stock $stocks)
     {
         $this->stocks[] = $stocks;
 
@@ -197,7 +197,7 @@ class Product
      *
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      */
-    public function removeStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function removeStocks(Stock $stocks)
     {
         $this->stocks->removeElement($stocks);
     }
@@ -381,7 +381,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      * @return Product
      */
-    public function addStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function addStock(Stock $stocks)
     {
         $this->stocks[] = $stocks;
 
@@ -393,7 +393,7 @@ class Product
      *
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      */
-    public function removeStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function removeStock(Stock $stocks)
     {
         $this->stocks->removeElement($stocks);
     }
@@ -404,7 +404,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Stock $currentStock
      * @return Product
      */
-    public function setCurrentStock(\Vrbh\SiteBundle\Entity\Stock $currentStock = null)
+    public function setCurrentStock(Stock $currentStock = null)
     {
         $this->currentStock = $currentStock;
 
