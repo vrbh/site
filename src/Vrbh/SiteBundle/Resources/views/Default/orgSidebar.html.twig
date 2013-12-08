@@ -1,4 +1,5 @@
 <!-- ESI included from base, to sidebar -->
+<div class="list-group">
 {% if app.user %}
     <h4 class="list-group-item">Organisations</h4>
     <span class="list-group-item" id="add-org">
@@ -17,7 +18,7 @@
 {% else %}
     <span class="list-group-item">Not logged in?</span>
 {% endif %}
-
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="createNewOrg" tabindex="-1" role="dialog" aria-labelledby="CreateNewOrg" aria-hidden="true">

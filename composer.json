@@ -26,6 +26,10 @@
         "jms/serializer-bundle": "*",
         "friendsofsymfony/oauth-server-bundle": "dev-master"
     },
+    "require-dev":
+    {
+        "phpunit/phpunit": "dev-master"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

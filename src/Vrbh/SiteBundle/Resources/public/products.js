@@ -1,5 +1,70 @@
 $(document).ready(function () {
 
+    var currentItem = null;
+
+    $('[data-row=stock]').click(function()
+    {
+        currentItem = this;
+
+        var id = $(this).attr('data-row-stock');
+        var name = $(this).attr('data-row-name');
+
+        $('[data-change-stock=table]').hide();
+
+        $('[data-change-stock=title]').text('Change stock for ' + name);
+
+        $('[data-change-stock=form]').show();
+
+        $('[data-change-stock=info-' + id + ']').show();
+
+    });
+
+    var closeField = function()
+    {
+        if (currentItem == null)
+        {
+            console.log("Tried closing item, but no field was open?!");
+            return;
+        }
+
+        var id = $(currentItem).attr('data-row-stock');
+
+        $('[data-change-stock=table]').show();
+
+        $('[data-change-stock=form]').hide();
+
+        $('[data-change-stock=info-' + id + ']').hide();
+        $('[data-new-stock-error=' + id + ']').hide(); // Make sure the error is hidden when closing the field ;).
+
+        currentItem = null;
+    }
+
+    $('[data-save-state=save-current-product]').click(function(){
+        if (currentItem == null)
+        {
+            console.log("Clicked save, but no current item.");
+            return;
+        }
+        var id = $(currentItem).attr('data-row-stock');
+        var stock = $('[data-new-stock=' + id + ']').val();
+
+        if (isNaN(parseInt(stock)) || parseInt(stock) < 0)
+        {
+            $('[data-new-stock-error=' + id + ']').show();
+            setTimeout(function(){$('[data-new-stock-error=' + id + ']').hide();}, 5000);
+
+            return;
+        }
+
+        console.log("New stock: " + stock);
+
+        closeField();
+    });
+
+    $('[data-save-state=cancel-current-product]').click(function(){
+        closeField();
+    });
+
     $('[data-save-state=create-new-product]').click(function () {
 
         $('[data-save-state=create-product-org]').attr('disabled', 'disabled');

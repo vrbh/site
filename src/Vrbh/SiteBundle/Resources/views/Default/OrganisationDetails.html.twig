@@ -4,19 +4,20 @@
     {% for product in org.products %}
         <div class="col-7 col-sm-6 col-lg-4">
             <h2>{{ product.name }}</h2>
-            {% if product.currentStock is null  %}
+            {% if product.currentStock is null %}
                 <span class="label label-info">Stock unknown</span>
             {% else %}
-                {% if product.currentStock.amount <= product.minStock  %}
+                {% if product.currentStock.amount <= product.minStock %}
                     <span class="label label-danger">Stock under minimum stock</span>
                 {% elseif product.currentStock.amount >= product.maxStock %}
                     <span class="label label-danger">Stock over maximum stock</span>
                 {% else %}
                     <span class="label label-success">Stock OK</span>
-                {% endif  %}
+                {% endif %}
             {% endif %}
 
             <p>{{ product.description }}</p>
+
             <p>
                 {% if product.stocks|length > 1 %}
                     <a class="btn btn-default" href="" role="button">History</a>
@@ -26,6 +27,78 @@
             </p>
         </div>
     {% endfor %}
+
+    <div class="modal fade" id="startStocking" tabindex="-1" role="dialog" aria-labelledby="StartStock"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Stock information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Stock information is saved separately for each product. Once you are done, just close the
+                        window.</p>
+
+                    <span style="display: none" data-change-stock="form">
+                        <h4 data-change-stock="title"></h4>
+
+                        {% for product in org.products %}
+                            <p style="display: none" data-change-stock="info-{{ product.id }}">
+                                {{ product.description }}
+                                <span class="error" data-new-stock-error="{{ product.id }}">New stock amount is required.</span>
+                                <input type="text" data-new-stock="{{ product.id }}" required="required"
+                                       class="form-control" placeholder="New stock (In {{ product.stockUnit }})"/>
+                            </p>
+                        {% endfor %}
+
+                        <button type="button" class="btn btn-default" data-save-state="cancel-current-product">Cancel
+                        </button>
+                        <button type="button" class="btn btn-default" data-save-state="save-current-product">Save
+                        </button>
+                    </span>
+
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped"
+                               data-change-stock="table">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Old stock</th>
+                                <th>New stock</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in org.products %}
+                                <tr data-row="stock" data-row-stock="{{ product.id }}"
+                                    data-row-name="{{ product.name }}" class="warning">
+                                    <td>{{ product.name }}</td>
+                                    <td>
+                                        {% if product.currentStock is null %}
+                                            Stock unknown
+                                        {% else %}
+                                            {{ product.currentStock.amount }}
+                                        {% endif %}
+                                    </td>
+                                    <td data-new-stock="{{ product.id }}"></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 {% endblock %}
 
@@ -40,15 +113,18 @@
 
 
 {% block sidebar %}
-    </div>
     <div class="list-group">
-    <h4 class="list-group-item">Products</h4>
-    <span class="list-group-item" id="add-product">
-    <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewProduct">
-        Add new product
-    </button></span>
-
-    <a class="list-group-item">Number of products: {{ org.products|length }}</a>
+        <h4 class="list-group-item">Products</h4>
+        <span class="list-group-item" id="add-product">
+        <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewProduct">
+            Add new product
+        </button></span>
+        <span class="list-group-item" id="add-product">
+        <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#startStocking">
+            Count stock
+        </button></span>
+        <a class="list-group-item">Number of products: {{ org.products|length }}</a>
+    </div>
 
 
     <div class="modal fade" id="createNewProduct" tabindex="-1" role="dialog" aria-labelledby="CreateNewProduct"
@@ -70,7 +146,8 @@
                         <span id="product-description-error" class="error">The description parameter is required.</span>
                         <textarea data-save-state="create-new-product-description" required="required"
                                   class="form-control" placeholder="Description"></textarea>
-                        <span id="product-stockunit-error" class="error" style>The stock unit parameter is required.</span>
+                        <span id="product-stockunit-error" class="error"
+                              style>The stock unit parameter is required.</span>
                         <select id="stock-unit" required="required" data-save-state="create-new-product-stock-unit"
                                 class="form-control">
                             <option>stock unit</option>

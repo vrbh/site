@@ -210,7 +210,7 @@ class ApiOrganisationController extends Controller{
         $description = $request->request->get('description');
         $orderNumber = $request->request->get('orderNumber');
         $ean = $request->request->get('ean');
-        $stockUnit = $request->request->get('stockUnint');
+        $stockUnit = $request->request->get('stockUnit');
         $orderUnit = $request->request->get('orderUnit');
         $minStock = $request->request->get('minStock');
         $maxStock = $request->request->get('maxStock');
@@ -225,6 +225,10 @@ class ApiOrganisationController extends Controller{
             $error[] = 'Min stock is empty';
         if (empty($maxStock))
             $error[] = 'Max stock is empty';
+        if(empty($stockUnit))
+            $error[] = 'Stock unit is empty';
+        if (empty($orderUnit))
+            $error[] = 'Order unit is empty';
 
         if (!sizeof($error))
         {
