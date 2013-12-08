@@ -53,3 +53,8 @@ footer {
     color: red;
     display: none;
 }
+
+.hr_no_margin
+{
+    margin: 0 0 0 0 !important;
+}

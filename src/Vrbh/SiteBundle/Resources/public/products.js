@@ -1,5 +1,14 @@
 $(document).ready(function () {
 
+    $('[data-mark-ordered=done]').click(function(){
+        console.log("Mark ordered");
+        $(this).html('Ordered');
+        $(this).addClass('btn-success');
+        $(this).removeClass('btn-default');
+        return false;
+    });
+
+
     var currentItem = null;
 
     $('[data-row=stock]').click(function()
@@ -55,8 +64,53 @@ $(document).ready(function () {
 
             return;
         }
+        $('[data-row-loading=' + id + ']').show();
+        $(currentItem).addClass('active');
+        $(currentItem).removeClass('warning');
+
+        var saving = currentItem;
+
+        $('[data-new-stock=' + id + ']').html(stock);
 
         console.log("New stock: " + stock);
+
+        var errorHandler = function()
+        {
+            if (!saving)
+            {
+                console.log("Missing saving var?!?");
+                return;
+            }
+            $(saving).addClass('danger');
+            $(saving).removeClass('active');
+        }
+        $.ajax({
+            type: "POST",
+            url: createStock.replace(999, id),
+            data: {
+                amount: stock
+            },
+            error: function()
+            {
+                console.log("error!");
+                $('[data-row-loading=' + $(saving).attr('data-row-stock') + ']').hide();
+                errorHandler();
+            },
+            success: function (data, textStatus, resp) {
+
+                $('[data-row-loading=' + $(saving).attr('data-row-stock') + ']').hide();
+
+                var id = resp.getResponseHeader("X-new-id");
+
+                if (!id)
+                {
+                    errorHandler();
+                    return;
+                }
+                $(saving).removeClass('active');
+                $(saving).addClass('success');
+            }
+        });
 
         closeField();
     });

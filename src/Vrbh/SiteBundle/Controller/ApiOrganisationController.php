@@ -142,7 +142,7 @@ class ApiOrganisationController extends Controller
      */
     public function createNewStockAction($org, $product)
     {
-        $this->createNewStock($org, $product);
+        return $this->createNewStock($org, $product);
     }
 
     /**
@@ -156,7 +156,7 @@ class ApiOrganisationController extends Controller
      */
     public function createNewInternalStockAction($org, $product)
     {
-        $this->createNewStock($org, $product);
+        return $this->createNewStock($org, $product);
     }
 
     /**
