@@ -94,7 +94,7 @@ class ApiOrganisationController extends Controller{
     /**
      * Create a new product via the local API for a organisation
      *
-     * @Route("/internal/api/{org}/products", requirements={"org" = "\d+"})
+     * @Route("/internal/api/{org}/products", requirements={"org" = "\d+"}, name="createProduct")
      * @METHOD({"POST"})
      * @param $org
      * @return View
@@ -102,7 +102,16 @@ class ApiOrganisationController extends Controller{
      */
     public function createNewLocalProductAction($org)
     {
-        return $this->createNewPrd($org);
+        $org = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->find($org);
+
+        if (!$org instanceof Organisation) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+        $prd = new Product();
+        $prd->setOrganisation($org);
+        return $this->createNewProduct($prd, true);
     }
 
 
@@ -228,8 +237,9 @@ class ApiOrganisationController extends Controller{
             $product->setMinStock($minStock);
             $product->setMaxStock($maxStock);
 
-            $em = $this->container->get('doctrine')->getEntityManager();
+            $em = $this->container->get('doctrine')->getManager();
             $em->persist($product);
+            $em->flush();
 
             $response = new Response();
             $response->setStatusCode($statusCode);
@@ -239,7 +249,8 @@ class ApiOrganisationController extends Controller{
                 $response->headers->set('X-new-id', $product->getId());
                 $response->headers->set('Location',
                     $this->generateUrl(
-                        'get_products', array('id' => $product->getId()),
+                        'get_products', array('id' => $product->getId(), 'org' => $product->getOrganisation()->getId()),
+
                         true // absolute
                     )
                 );
@@ -266,7 +277,7 @@ class ApiOrganisationController extends Controller{
             $organisation->setName($name_value);
             $organisation->setCreator($user);
 
-            $em = $this->container->get('doctrine')->getEntityManager();
+            $em = $this->container->get('doctrine')->getManager();
 
             $userorg = new UserOrg();
             $userorg->setOrganisation($organisation);
