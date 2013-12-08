@@ -2,9 +2,34 @@
 {% block title %}Manage organisation || {{ org.name }}{% endblock %}
 {% block body %}
     {% for product in org.products %}
-        {{ product.name }}
+        <div class="col-7 col-sm-6 col-lg-4">
+            <h2>{{ product.name }}</h2>
+            {% if product.currentStock is null  %}
+                <span class="label label-info">Stock unknown</span>
+            {% else %}
+                {% if product.currentStock.amount <= product.minStock  %}
+                    <span class="label label-danger">Stock under minimum stock</span>
+                {% elseif product.currentStock.amount >= product.maxStock %}
+                    <span class="label label-danger">Stock over maximum stock</span>
+                {% else %}
+                    <span class="label label-success">Stock OK</span>
+                {% endif  %}
+            {% endif %}
+
+            <p>{{ product.description }}</p>
+            <p>
+                {% if product.stocks|length > 1 %}
+                    <a class="btn btn-default" href="" role="button">History</a>
+                {% else %}
+                    Not enough information to draw graph.
+                {% endif %}
+            </p>
+        </div>
     {% endfor %}
+
 {% endblock %}
+
+
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('/bundles/vrbhsite/products.js') }}" type="text/javascript"></script>
@@ -12,6 +37,8 @@
         var createProduct = "{{ path('createProduct', {'org': org.id}) }}";
     </script>
 {% endblock %}
+
+
 {% block sidebar %}
     </div>
     <div class="list-group">
