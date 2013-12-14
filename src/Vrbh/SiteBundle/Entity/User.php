@@ -27,8 +27,14 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="user")
      * @Expose
      */	
-	protected $orgs;	
-	
+	protected $orgs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserOrgRequest", mappedBy="user")
+     * @Expose
+     */
+    protected $orgRequests;
+
     /**
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="creator")
      */	
@@ -68,6 +74,7 @@ class User extends BaseUser
         parent::__construct();
         
 		$this->orgs = new ArrayCollection();
+        $this->orgRequests = new ArrayCollection();
         $this->orgsCreated = new ArrayCollection();
     }
 
@@ -121,7 +128,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addOrgsCreated(\Organisation $orgsCreated)
+    public function addOrgsCreated(Organisation $orgsCreated)
     {
         $this->orgsCreated[] = $orgsCreated;
     
@@ -194,5 +201,39 @@ class User extends BaseUser
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add orgRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests
+     *
+     * @return User
+     */
+    public function addOrgRequest(\Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests)
+    {
+        $this->orgRequests[] = $orgRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove orgRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests
+     */
+    public function removeOrgRequest(\Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests)
+    {
+        $this->orgRequests->removeElement($orgRequests);
+    }
+
+    /**
+     * Get orgRequests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrgRequests()
+    {
+        return $this->orgRequests;
     }
 }

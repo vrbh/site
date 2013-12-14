@@ -28,6 +28,11 @@ class Organisation
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="organisation", cascade={"remove"})
      */	
 	protected $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserOrgRequest", mappedBy="organisation", cascade={"remove"})
+     */
+    protected $userRequests;
 	
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation", cascade={"remove"})
@@ -63,6 +68,7 @@ class Organisation
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userRequests = new ArrayCollection();
         $this->products = new ArrayCollection();
     }
 
@@ -270,5 +276,39 @@ class Organisation
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Add userRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $userRequests
+     *
+     * @return Organisation
+     */
+    public function addUserRequest(UserOrgRequest $userRequests)
+    {
+        $this->userRequests[] = $userRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove userRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $userRequests
+     */
+    public function removeUserRequest(UserOrgRequest $userRequests)
+    {
+        $this->userRequests->removeElement($userRequests);
+    }
+
+    /**
+     * Get userRequests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserRequests()
+    {
+        return $this->userRequests;
     }
 }
