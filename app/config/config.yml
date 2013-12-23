@@ -138,3 +138,13 @@ fos_elastica:
                         provider: ~
                         finder: ~
                         listener: ~
+                product:
+                    mappings:
+                        name: { boost: 5 }
+
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model: Vrbh\SiteBundle\Entity\Product
+                        provider: ~
+                        finder: ~
+                        listener: ~

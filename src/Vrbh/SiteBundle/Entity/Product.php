@@ -24,6 +24,7 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="products")
      * @ORM\JoinColumn(name="organisation_id", referencedColumnName="id")
+     * @Expose()
      */
     protected $organisation;	
 	
