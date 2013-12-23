@@ -15,8 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Vrbh\SiteBundle\Entity\Product;
 use Vrbh\SiteBundle\Entity\User;
+use Vrbh\SiteBundle\Entity\UserOrgRequest;
 use Vrbh\SiteBundle\Entity\Stock;
 use Vrbh\SiteBundle\Entity\Organisation;
+use Vrbh\SiteBundle\Entity\UserOrg;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -24,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Vrbh\SiteBundle\Entity\UserOrg;
+
 
 class ApiOrganisationController extends Controller
 {
@@ -241,6 +243,54 @@ class ApiOrganisationController extends Controller
 
     }
 
+    /**
+     * Send a request to join a organisation.
+     *
+     * @Route("/internal/api/organisation/join/", name="joinOrg")
+     * @Method({"POST"})
+     */
+    public function joinOrgLocalRequestAction()
+    {
+        return $this->joinOrg();
+    }
+
+    /**
+     * Approve a organisation request.
+     *
+     * @param $org
+     * @param $request
+     * @Route("/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"})
+     * @Method({"POST"})
+     */
+    public function approveRequestAction($org, $request)
+    {
+
+    }
+
+    /**
+     * Deny a organisation request.
+     *
+     * @param $org
+     * @param $request
+     * @Route("/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"})
+     * @Method({"DELETE"})
+     */
+    public function denyRequestAction($org, $request)
+    {
+
+    }
+
+    /**
+     * Send a request to join a organisation.
+     *
+     * @Route("/api/organisation/join/")
+     * @Method({"POST"})
+     */
+    public function joinOrgRequestAction()
+    {
+        return $this->joinOrg();
+    }
+
 
     /**
      * Create or update a new product
@@ -418,5 +468,62 @@ class ApiOrganisationController extends Controller
         $response->headers->set('X-new-id', $stock->getId());
 
         return $response;
+    }
+
+    /**
+     * Create a new request for joining a organisation.
+     *
+     * @todo: Check if a user is already in a org before creating the request.
+     * @return View|Response
+     */
+    private function joinOrg()
+    {
+        $request = $this->get('request');
+        $name_value = $request->request->get('name');
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $organisation = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->findByName($name_value)[0];
+
+        if (!empty($name_value) && $organisation instanceof Organisation) {
+
+            $em = $this->container->get('doctrine')->getManager();
+
+
+            $userrequest = new UserOrgRequest();
+            $userrequest->setUser($user);
+            $userrequest->setOrganisation($organisation);
+
+            $em->persist($userrequest);
+            $em->flush();
+
+            foreach ($organisation->getUsers() as $usr) {
+                if ($usr->getType() == 'admin') {
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Request to join organisation (' . $organisation->getName() . ')')
+                        ->setFrom('paul@sohier.me')
+                        ->setTo($usr->getUser()->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'VrbhSiteBundle:Email:join.txt.twig',
+                                array('userorg' => $userrequest, 'user' => $usr)
+                            )
+                        );
+                    $this->get('mailer')->send($message);
+                }
+            }
+
+
+            $response = new Response();
+            $response->setStatusCode(201);
+
+            $response->headers->set('X-new-id', $userrequest->getId());
+
+            return $response;
+        }
+
+        return View::create(array('error' => array('Name is empty or organisation doesnt exists.')), 400);
     }
 } 

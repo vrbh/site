@@ -14,6 +14,9 @@ use Vrbh\SiteBundle\Entity\Organisation;
 class DefaultController extends Controller
 {
 
+    /**
+     * @return Response
+     */
     private function createResponse()
     {
         $response = new Response();
@@ -123,5 +126,29 @@ class DefaultController extends Controller
         }
 
         return $this->render('VrbhSiteBundle:Default:OrganisationRequests.html.twig', array('org' => $org), $response);
+    }
+    /**
+     * @Route("/organisation/search/{param}", name="search_org")
+     * @param String $param
+     * @return Response
+     */
+    public function searchOrgAction($param)
+    {
+       $finder = $this->get('fos_elastica.finder.website.organisation');
+
+        $result = array();
+
+        foreach ($finder->find($param . "*") as $row)
+        {
+            $result[] = $row->getName();
+        }
+
+
+
+        $response = $this->createResponse();
+
+        $response->setContent(json_encode($result));
+
+        return $response;
     }
 }

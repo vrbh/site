@@ -115,3 +115,25 @@ jms_serializer:
             FOSUB:
                 namespace_prefix: FOS\UserBundle
                 path: %kernel.root_dir%/serializer/FOSUB
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+        backup: { host: localhost, port: 9201 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        website:
+            client: default
+            types:
+                organisation:
+                    mappings:
+                        name: { boost: 5 }
+
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model: Vrbh\SiteBundle\Entity\Organisation
+                        provider: ~
+                        finder: ~
+                        listener: ~

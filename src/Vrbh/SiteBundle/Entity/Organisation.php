@@ -42,7 +42,7 @@ class Organisation
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orgsCreated")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @Expose()
+     *
      */
 	protected $creator;
 	

@@ -19,19 +19,17 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Expose
+     * @Expose()
      */
     protected $id;
 	
     /**
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="user")
-     * @Expose
      */	
 	protected $orgs;
 
     /**
      * @ORM\OneToMany(targetEntity="UserOrgRequest", mappedBy="user")
-     * @Expose
      */
     protected $orgRequests;
 
