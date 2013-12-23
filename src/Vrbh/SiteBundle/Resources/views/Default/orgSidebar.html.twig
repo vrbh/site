@@ -9,8 +9,13 @@
     <script src="{{ asset('/bundles/vrbhsite/org.js') }}" type="text/javascript"></script>
 
     {% for org in orgs %}
+        <span class="list-group-item">
         <a href="" data-org-select="select-org" data-org-id="{{ org.id }}"
-           class="list-group-item ">{{ org.organisation.name }} ({{ org.type }})</a>
+           >{{ org.organisation.name }} ({{ org.type }})</a>
+            {% if org.type == 'admin' %}
+                &bull;  <a href="{{ path('manage_request', {"id": org.id}) }}">Manage requests</a>
+            {% endif %}
+            </span>
     {% else %}
         <span class="list-group-item">No organisations yet.</span>
     {% endfor %}

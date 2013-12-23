@@ -66,6 +66,9 @@ class DefaultController extends Controller
 
     /**
      * @Route("/organisation/{id}", name="orglist", requirements={"id" = "\d+"})
+     * @param int $id
+     * @return template
+     * @throws NotFoundHttpException
      */
     public function listOrganisationDataAction($id)
     {
@@ -91,5 +94,34 @@ class DefaultController extends Controller
             'jumbo_title' => $org->getName(),
             'jumbo_text' => '',
             'org' => $org), $response);
+    }
+
+    /**
+     * @param int $id
+     * @Route("/organisation/{id}/manage", name="manage_request", requirements={"id" = "\d+"})
+     * @return template
+     * @throws NotFoundHttpException
+     *
+     */
+    public function manageOrg($id)
+    {
+        $response = new Response();
+        $response->setPrivate(false);
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $org = $this->getDoctrine()
+            ->getRepository('VrbhSiteBundle:Organisation')
+            ->find($id);
+
+        if (!$org instanceof Organisation) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        if (!$org->checkAllowed($user)) {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        return $this->render('VrbhSiteBundle:Default:OrganisationRequests.html.twig', array('org' => $org), $response);
     }
 }

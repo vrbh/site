@@ -216,6 +216,33 @@ class ApiOrganisationController extends Controller
 
 
     /**
+     * Approve a organisation request.
+     *
+     * @param $org
+     * @param $request
+     * @Route("/internal/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"}, name="approveRequest")
+     * @Method({"POST"})
+     */
+    public function approveLocalRequestAction($org, $request)
+    {
+
+    }
+
+    /**
+     * Deny a organisation request.
+     *
+     * @param $org
+     * @param $request
+     * @Route("/internal/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"}, name="denyRequest")
+     * @Method({"DELETE"})
+     */
+    public function denyLocalRequestAction($org, $request)
+    {
+
+    }
+
+
+    /**
      * Create or update a new product
      *
      * @todo Move to use a type instead validating our self.

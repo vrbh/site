@@ -58,7 +58,7 @@
                         {% for product in org.products %}
                             <p style="display: none" data-change-stock="info-{{ product.id }}">
                                 {{ product.description }}
-                                <span class="error" data-new-stock-error="{{ product.id }}">New stock amount is required.</span>
+                                <span class="error" data-new-stock-error="{{ product.id }}">New stock amount is required, and needs to be zero or higher.</span>
                                 <input type="text" data-new-stock="{{ product.id }}" required="required"
                                        class="form-control" placeholder="New stock (In {{ product.stockUnit }})"/>
                             </p>
@@ -78,6 +78,7 @@
                                 <th>Product</th>
                                 <th>Old stock</th>
                                 <th>New stock</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -93,11 +94,13 @@
                                         {% endif %}
                                     </td>
                                     <td data-new-stock="{{ product.id }}"></td>
+                                    <td><a href="" onclick="return false">Update stock</a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
                     </div>
+                    Legend?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
