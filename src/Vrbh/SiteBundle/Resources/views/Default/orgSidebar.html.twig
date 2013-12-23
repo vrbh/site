@@ -10,10 +10,10 @@
 
     {% for org in orgs %}
         <span class="list-group-item">
-        <a href="" data-org-select="select-org" data-org-id="{{ org.id }}"
+        <a href="" data-org-select="select-org" data-org-id="{{ org.organisation.id }}"
            >{{ org.organisation.name }} ({{ org.type }})</a>
             {% if org.type == 'admin' %}
-                &bull;  <a href="{{ path('manage_request', {"id": org.id}) }}">Manage requests</a>
+                &bull;  <a href="{{ path('manage_request', {"id": org.organisation.id}) }}">Manage requests</a>
             {% endif %}
             </span>
     {% else %}
