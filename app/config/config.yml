@@ -126,6 +126,7 @@ fos_elastica:
     indexes:
         website:
             client: default
+            index_name: website_%elastic_index%
             types:
                 organisation:
                     mappings:
