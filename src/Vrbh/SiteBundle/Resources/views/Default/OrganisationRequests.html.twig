@@ -4,12 +4,13 @@
     <h1>{{ org.name }}</h1>
     <p>Number of request: {{ org.userRequests|length }}.</p>
     {% for request in org.userRequests %}
-        <div class="col-7 col-sm-6 col-lg-4">
+        <div class="col-7 col-sm-6 col-lg-4" data-block-id="{{ request.id }}">
             <h2>{{ request.user.username }}</h2>
 
             <p>Requested at {{ request.created|date }}
-                <a class="btn btn-success" data-approve="request" data-request-id="{{ request.id }}" role="button">Approve</a>
-                <a class="btn btn-danger" data-approve="request" data-request-id="{{ request.id }}"
+                <a class="btn btn-success" data-request="handle" data-action="approve"
+                   data-request-id="{{ request.id }}" role="button">Approve</a>
+                <a class="btn btn-danger" data-request="handle" data-action="deny" data-request-id="{{ request.id }}"
                    role="button">Deny
                 </a>
             </p>

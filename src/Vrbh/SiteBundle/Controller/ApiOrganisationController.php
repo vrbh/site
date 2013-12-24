@@ -33,19 +33,15 @@ class ApiOrganisationController extends Controller
     /**
      * Get organisation data
      * @Rest\View
-     * @param int $id organisation id
-     * @Route("/api/organisation/{id}", requirements={"id" = "\d+"}, name="get_organisation")
+     * @param Organisation $org organisation id
+     * @Route("/api/organisation/{org}", requirements={"org" = "\d+"}, name="get_organisation")
      * @Method({"GET"})
      * @throws NotFoundHttpException
      * @ApiDoc()
      * @return organisation
      */
-    public function getOrganisationAction($id)
+    public function getOrganisationAction(Organisation $org)
     {
-        $org = $this->getDoctrine()
-            ->getRepository('VrbhSiteBundle:Organisation')
-            ->find($id);
-
         if (!$org instanceof Organisation) {
             throw new NotFoundHttpException('Organisation not found');
         }
@@ -56,7 +52,7 @@ class ApiOrganisationController extends Controller
     /**
      * Get all products from a specific organisation
      *
-     * @param int $org organisation id
+     * @param Organisation $org organisation id
      * @Rest\View
      * @Route("/api/organisation/{org}/products", requirements={"org" = "\d+"}, name="get_products")
      * @Method({"GET"})
@@ -64,12 +60,8 @@ class ApiOrganisationController extends Controller
      * @ApiDoc()
      * @return product
      */
-    public function getOrganisationProductsAction($org)
+    public function getOrganisationProductsAction(Organisation $org)
     {
-        $org = $this->getDoctrine()
-            ->getRepository('VrbhSiteBundle:Organisation')
-            ->find($org);
-
         if (!$org instanceof Organisation) {
             throw new NotFoundHttpException('Organisation not found');
         }
@@ -84,14 +76,14 @@ class ApiOrganisationController extends Controller
     /**
      * Create a new product for a organisation
      *
-     * @param int $org organisation id
+     * @param Organisation $org organisation id
      * @Route("/api/organisation/{org}/products", requirements={"org" = "\d+"})
      * @Method({"POST"})
      * @ApiDoc()
      * @throws NotFoundHttpException
      * @return view
      */
-    public function createNewProductAction($org)
+    public function createNewProductAction(Organisation $org)
     {
         return $this->createNewPrd($org);
     }
@@ -101,29 +93,24 @@ class ApiOrganisationController extends Controller
      *
      * @Route("/internal/api/{org}/products", requirements={"org" = "\d+"}, name="createProduct")
      * @Method({"POST"})
-     * @param int $org Organisation id
+     * @param Organisation $org Organisation id
      * @return View
      * @throws NotFoundHttpException
      */
-    public function createNewLocalProductAction($org)
+    public function createNewLocalProductAction(Organisation $org)
     {
         return $this->createNewPrd($org);
     }
 
-
     /**
      * Create a new organisation (Helper function)
      *
-     * @param int $org organisation id
-     * @return View
+     * @param Organisation $org organisation id
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return View
      */
-    private function createNewPrd($org)
+    private function createNewPrd(Organisation $org)
     {
-        $org = $this->getDoctrine()
-            ->getRepository('VrbhSiteBundle:Organisation')
-            ->find($org);
-
         if (!$org instanceof Organisation) {
             throw new NotFoundHttpException('Organisation not found');
         }
@@ -134,29 +121,28 @@ class ApiOrganisationController extends Controller
 
     /**
      * Create a new stock entry for a product
-     * @param int $org organisation id
-     * @param int $product product id
+     * @param Organisation $org organisation id
+     * @param Product $product product id
      * @Route("/api/organisation/{org}/products/{product}/stock", requirements={"org" = "\d+", "product" = "\d+"})
      * @Method({"POST"})
      * @ApiDoc()
      * @throws NotFoundHttpException
      * @return view
      */
-    public function createNewStockAction($org, $product)
+    public function createNewStockAction(Organisation $org, Product $product)
     {
         return $this->createNewStock($org, $product);
     }
 
     /**
      * Create a new stock entry for a product from the website
-     * @param int $org organisation id
-     * @param int $product product id
+     * @param Organisation $org organisation id
+     * @param Product $product product id
      * @Route("/internal/api/organisation/{org}/products/{product}/stock", requirements={"org" = "\d+", "product" = "\d+"}, name="createStock")
      * @Method({"POST"})
-     * @throws NotFoundHttpException
      * @return view
      */
-    public function createNewInternalStockAction($org, $product)
+    public function createNewInternalStockAction(Organisation $org, Product $product)
     {
         return $this->createNewStock($org, $product);
     }
@@ -181,12 +167,12 @@ class ApiOrganisationController extends Controller
      * Delete a organisation. This requires ROLE_ADMIN
      *
      * @Rest\View
-     * @param int $org organisation id
+     * @param Organisation $org organisation id
      * @Route("/api/organisation/{org}", requirements={"org" = "\d+"})
      * @Method({"DELETE"})
      * @ApiDoc()
      */
-    public function deleteOrganisationAction($org)
+    public function deleteOrganisationAction(Organisation $org)
     {
 
     }
@@ -222,12 +208,13 @@ class ApiOrganisationController extends Controller
      *
      * @param $org
      * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/internal/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"}, name="approveRequest")
      * @Method({"POST"})
      */
-    public function approveLocalRequestAction($org, $request)
+    public function approveLocalRequestAction(Organisation $org, UserOrgRequest $request)
     {
-
+        return $this->approveRequest($org, $request);
     }
 
     /**
@@ -235,12 +222,13 @@ class ApiOrganisationController extends Controller
      *
      * @param $org
      * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/internal/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"}, name="denyRequest")
      * @Method({"DELETE"})
      */
-    public function denyLocalRequestAction($org, $request)
+    public function denyLocalRequestAction(Organisation $org, UserOrgRequest $request)
     {
-
+        return $this->denyRequest($org, $request);
     }
 
     /**
@@ -259,31 +247,38 @@ class ApiOrganisationController extends Controller
      *
      * @param $org
      * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"})
      * @Method({"POST"})
+     * @ApiDoc()
+     * @Rest\View(statusCode=204)
      */
-    public function approveRequestAction($org, $request)
+    public function approveRequestAction(Organisation $org, UserOrgRequest $request)
     {
-
+        return $this->approveRequest($org, $request);
     }
 
     /**
      * Deny a organisation request.
      *
-     * @param $org
-     * @param $request
+     * @param Organisation $org Organisation ID
+     * @param UserOrgRequest $request Request ID
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/api/organisation/{org}/requests/{request}", requirements={"org" = "\d+", "request" = "\d+"})
      * @Method({"DELETE"})
+     * @ApiDoc()
+     * @Rest\View(statusCode=204)
      */
-    public function denyRequestAction($org, $request)
+    public function denyRequestAction(Organisation $org, UserOrgRequest $request)
     {
-
+        return $this->denyRequest($org, $request);
     }
 
     /**
      * Send a request to join a organisation.
      *
      * @Route("/api/organisation/join/")
+     * @ApiDoc()
      * @Method({"POST"})
      */
     public function joinOrgRequestAction()
@@ -433,19 +428,10 @@ class ApiOrganisationController extends Controller
      * @throws NotFoundHttpException
      * @return Response
      */
-    private function createNewStock($org, $product)
+    private function createNewStock(Organisation $org, Product $product)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $request = $this->get('request');
-
-        $org = $this->getDoctrine()
-            ->getRepository('VrbhSiteBundle:Organisation')
-            ->find($org);
-
-        if (!($org instanceof Organisation) || !$org->checkAllowed($user)) {
-            throw new NotFoundHttpException('Organisation not found');
-        }
-        $product = $this->getDoctrine()->getRepository('VrbhSiteBundle:Product')->find($product);
 
         if (!($product instanceof Product) || $product->getOrganisation()->getId() != $org->getId()) {
             throw new NotFoundHttpException('Product not found');
@@ -514,8 +500,6 @@ class ApiOrganisationController extends Controller
                     $this->get('mailer')->send($message);
                 }
             }
-
-
             $response = new Response();
             $response->setStatusCode(201);
 
@@ -525,5 +509,116 @@ class ApiOrganisationController extends Controller
         }
 
         return View::create(array('error' => array('Name is empty or organisation doesnt exists.')), 400);
+    }
+
+    /**
+     * Approve a request for a organisation.
+     *
+     * @param $org
+     * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function approveRequest(Organisation $org, UserOrgRequest $request)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if (!$org->checkAllowed($user))
+        {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        if (!$request instanceof UserOrgRequest || $request->getOrganisation()->getId() != $org->getId()) {
+            throw new NotFoundHttpException('request not found');
+        }
+
+        $users = $org->getUsers()->toArray();
+        // Check if a user is already a in a org.
+        foreach ($users as $usr) {
+            if ($usr->getUser()->getId() == $request->getUser()->getId()) {
+                throw new NotFoundHttpException('Invalid request, already member!');
+            }
+        }
+        if ($user->getId() == $request->getUser()->getId())
+        {
+            // Don't allow user to approve himself.
+            // This should theoreticlly not be possible, as you cant be twice on a org.
+            throw new NotFoundHttpException('Invalid request.');
+        }
+        $userorg = new UserOrg();
+        $userorg->setUser($request->getUser());
+        $userorg->setOrganisation($request->getOrganisation());
+        $userorg->setType('user'); // Always set to user in first case.
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($userorg);
+        $em->remove($request);
+        $em->flush();
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Request to join organisation (' . $org->getName() . ') approved')
+            ->setFrom('paul@sohier.me')
+            ->setTo($userorg->getUser()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'VrbhSiteBundle:Email:approved.txt.twig',
+                    array('userorg' => $userorg)
+                )
+            );
+        $this->get('mailer')->send($message);
+
+        $response = new Response();
+        $response->setStatusCode(201);
+
+        $response->headers->set('X-new-id', $userorg->getId());
+
+        return $response;
+    }
+
+    /**
+     * Deny a request for a organisation
+     *
+     * @param \Vrbh\SiteBundle\Entity\Organisation $org
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function denyRequest(Organisation $org, UserOrgRequest $request)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if (!$org->checkAllowed($user))
+        {
+            throw new NotFoundHttpException('Organisation not found');
+        }
+
+        if (!$request instanceof UserOrgRequest || $request->getOrganisation()->getId() != $org->getId()) {
+            throw new NotFoundHttpException('request not found');
+        }
+        if ($user->getId() == $request->getUser()->getId())
+        {
+            throw new NotFoundHttpException('Invalid request.');
+        }
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->remove($request);
+        $em->flush();
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Request to join organisation (' . $org->getName() . ') denied')
+            ->setFrom('paul@sohier.me')
+            ->setTo($request->getUser()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'VrbhSiteBundle:Email:denied.txt.twig',
+                    array('userorg' => $request)
+                )
+            );
+        $this->get('mailer')->send($message);
+
+        $response = new Response();
+        $response->setStatusCode(204);
+
+        return $response;
     }
 } 

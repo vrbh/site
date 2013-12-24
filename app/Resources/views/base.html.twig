@@ -123,66 +123,9 @@
                                        placeholder="Organisation name"/>
                             </p>
 
-                            <!-- TODO: Move me -->
                             <script type="text/javascript">
                                 var rst = '{{ path('search_org', {'param': 'rst'}) }}'.replace('rst', '%QUERY');
                                 var joinOrg = '{{ path('joinOrg') }}';
-
-                                $(document).ready(function() {
-                                $('#typeahead').typeahead(
-                                        {
-                                            name: 'organisations',
-                                            remote: rst
-                                        }
-                                );
-                                    $('[data-save-state=join-org]').click(function() {
-
-                                        $('[data-save-state=join-org]').attr('disabled', 'disabled');
-                                        $('[data-save-state=join-org-cancel]').attr('disabled', 'disabled');
-
-                                        var removeJoinOrgDisabled = function () {
-                                            $('[data-save-state=join-org]').removeAttr('disabled');
-                                            $('[data-save-state=join-org-cancel]').removeAttr('disabled');
-                                        };
-
-                                        var hideJoinOrg = function()
-                                        {
-                                            $('#joinOrg').modal('hide');
-
-                                            removeJoinOrgDisabled();
-                                        };
-
-                                        var name = $('[data-save-state=join-org-name]').val();
-
-                                        if (!name)
-                                        {
-                                            $("#join-new-org-name-error").show();
-
-                                            setTimeout(function() { $("#join-new-org-name-error").hide(); }, 2000);
-                                            removeJoinOrgDisabled();
-                                        }
-                                        else
-                                        {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: joinOrg,
-                                                data: {
-                                                    name: name
-                                                },
-                                                success: function(data, textStatus, resp)
-                                                {
-                                                    var id = resp.getResponseHeader("X-new-id");
-                                                    hideJoinOrg();
-
-                                                    $('#alert-success').html('Request successfull send.');
-
-                                                    $("#alert-success").show();
-                                                    setTimeout(function() { $('#alert-success').hide(); }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                });
                             </script>
 
                         </div>
@@ -197,6 +140,8 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div><!-- /.modal -->
+        {% else %}
+            <script>var rst = null;</script>
         {% endif %}
 
         <!-- Latest compiled and minified JavaScript -->
