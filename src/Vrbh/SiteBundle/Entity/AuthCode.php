@@ -33,13 +33,13 @@ class AuthCode extends BaseAuthCode
 
     /**
      * @ORM\Column(type="datetime")
-     * @Type("DateTime<'Y-m-d H:i:s'>")
+     * @Type("DateTime<'Y-m-d\TH:i:s'>")
      */
     protected $created;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Type("DateTime<'Y-m-d H:i:s'>")
+     * @Type("DateTime<'Y-m-d\TH:i:s'>")
      */
     protected $updated;
 

@@ -42,14 +42,14 @@ class User extends BaseUser
 	
 	/**
 	 * @ORM\Column(type="datetime")
-     * @Type("DateTime<'Y-m-d H:i:s'>")
+     * @Type("DateTime<'Y-m-d\TH:i:s'>")
      * @Expose
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
-     * @Type("DateTime<'Y-m-d H:i:s'>")
+     * @Type("DateTime<'Y-m-d\TH:i:s'>")
      * @Expose
 	 */
 	protected $updated;	
