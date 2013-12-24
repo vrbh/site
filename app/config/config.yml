@@ -3,8 +3,9 @@ imports:
     - { resource: security.yml }
 
 framework:
-    #esi:             ~
-    #translator:      { fallback: %locale% }
+    esi:             { enabled: true }
+    translator:      { fallback: %locale% }
+    default_locale: en
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -18,8 +19,9 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:         ~
-    fragments:       ~
+    fragments: { path: /_fragment }
     http_method_override: true
+    trusted_proxies:  [127.0.0.1]
 
 # Twig Configuration
 twig:
@@ -70,11 +72,29 @@ fos_user:
     firewall_name: main
     user_class: Vrbh\SiteBundle\Entity\User	
 
-nelmio_api_doc: ~	
+nelmio_api_doc: ~
 
 fos_rest:
+    routing_loader:
+        default_format: null
     view:
-        view_response_listener: true
+        default_engine: twig
+        force_redirects:
+            html: true
+        formats:
+            json: true
+            xml: true
+
+        view_response_listener: 'force'
+        failed_validation: HTTP_BAD_REQUEST
+    exception:
+        codes: ~
+        messages: ~
+    format_listener:
+        rules:
+            # setting fallback_format to json means that instead of considering the next rule in case of a priority mismatch, json will be used
+            - { path: '^/api',  priorities: ['json', 'xml'], fallback_format: json, prefer_extension: false }
+            - { path: '^/', priorities: ['html'], fallback_format: html }
 
 sensio_framework_extra:
     view:    { annotations: false }
@@ -88,3 +108,43 @@ fos_oauth_server:
     auth_code_class:     Vrbh\SiteBundle\Entity\AuthCode
     service:
         user_provider: fos_user.user_manager
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: FOS\UserBundle
+                path: %kernel.root_dir%/serializer/FOSUB
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+        backup: { host: localhost, port: 9201 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        website:
+            client: default
+            index_name: website_%elastic_index%
+            types:
+                organisation:
+                    mappings:
+                        name: { boost: 5 }
+
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model: Vrbh\SiteBundle\Entity\Organisation
+                        provider: ~
+                        finder: ~
+                        listener: ~
+                product:
+                    mappings:
+                        name: { boost: 5 }
+
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model: Vrbh\SiteBundle\Entity\Product
+                        provider: ~
+                        finder: ~
+                        listener: ~

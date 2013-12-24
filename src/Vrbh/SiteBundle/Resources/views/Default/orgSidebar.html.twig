@@ -1,0 +1,61 @@
+<!-- ESI included from base, to sidebar -->
+<div class="list-group">
+{% if app.user %}
+    <h4 class="list-group-item">Organisations</h4>
+    <span class="list-group-item" id="add-org">
+    <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewOrg">
+        Create new organisation
+    </button></span>
+    <script src="{{ asset('/bundles/vrbhsite/org.js') }}" type="text/javascript"></script>
+
+    {% for org in orgs %}
+        <span class="list-group-item">
+        <a href="" data-org-select="select-org" data-org-id="{{ org.organisation.id }}"
+           >{{ org.organisation.name }} ({{ org.type }})</a>
+            {% if org.type == 'admin' %}
+                &bull;  <a href="{{ path('manage_request', {"id": org.organisation.id}) }}">Manage requests</a>
+            {% endif %}
+            </span>
+    {% else %}
+        <span class="list-group-item">No organisations yet.</span>
+    {% endfor %}
+
+{% else %}
+    <span class="list-group-item">Not logged in?</span>
+{% endif %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createNewOrg" tabindex="-1" role="dialog" aria-labelledby="CreateNewOrg" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-save-state="create-new-org-cancel" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New organisation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Create a new organisation. You will be assigned as the administrator of the specific organisation.
+                    <span id="name-error" class="error" style="display: none;">The name parameter is required.</span>
+                    <input type="text" data-save-state="create-new-org-name" required="required" class="form-control"
+                           placeholder="Organisation name"/>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-save-state="create-new-org-cancel"
+                        data-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-primary" data-save-state="create-new-org">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    var createOrg = "{{ path('createOrg') }}";
+    var goToOrg = "{{ path('orglist', {"id": '0'}) }}"
+</script>
+
+<!-- End ESI include -->

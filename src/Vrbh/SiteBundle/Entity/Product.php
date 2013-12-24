@@ -3,11 +3,13 @@ namespace Vrbh\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class Product
 {
@@ -15,33 +17,39 @@ class Product
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 	
     /**
      * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="products")
      * @ORM\JoinColumn(name="organisation_id", referencedColumnName="id")
+     * @Expose()
      */
     protected $organisation;	
 	
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Expose()
 	 */
     protected $name;
 
     /**
      * @ORM\Column(type="text", nullable=true);
+     * @Expose()
      *
      */
     protected $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Expose()
      */
     protected $orderNumber;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Expose()
      */
     protected $ean;
 
@@ -58,23 +66,39 @@ class Product
 
     /**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
     protected $updated;
 
     /**
-     * @ORM\Column(type="integer", nullable=true);
+     * @ORM\Column(type="string", length=255, nullable=true);
+     * @Expose()
      */
-    protected $stock_unit;
+    protected $stockUnit;
 
     /**
-     * @ORM\Column(type="integer", nullable=true);
+     * @ORM\Column(type="string", length=255, nullable=true);
+     * @Expose()
      */
-    protected $order_unit;
+    protected $orderUnit;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Expose()
+     */
+    protected $minStock;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Expose()
+     */
+    protected $maxStock;
 
     /**
 	 * @ORM\PrePersist
@@ -115,7 +139,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Organisation $organisation
      * @return Product
      */
-    public function setOrganisation(\Vrbh\SiteBundle\Entity\Organisation $organisation = null)
+    public function setOrganisation(Organisation $organisation = null)
     {
         $this->organisation = $organisation;
     
@@ -162,7 +186,7 @@ class Product
      *
      * @return Product
      */
-    public function addStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function addStocks(Stock $stocks)
     {
         $this->stocks[] = $stocks;
 
@@ -174,7 +198,7 @@ class Product
      *
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      */
-    public function removeStocks(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function removeStocks(Stock $stocks)
     {
         $this->stocks->removeElement($stocks);
     }
@@ -309,12 +333,12 @@ class Product
     /**
      * Set stock_unit
      *
-     * @param integer $stockUnit
+     * @param String $stockUnit
      * @return Product
      */
     public function setStockUnit($stockUnit)
     {
-        $this->stock_unit = $stockUnit;
+        $this->stockUnit = $stockUnit;
 
         return $this;
     }
@@ -322,22 +346,22 @@ class Product
     /**
      * Get stock_unit
      *
-     * @return integer
+     * @return String
      */
     public function getStockUnit()
     {
-        return $this->stock_unit;
+        return $this->stockUnit;
     }
 
     /**
      * Set order_unit
      *
-     * @param integer $orderUnit
+     * @param String $orderUnit
      * @return Product
      */
     public function setOrderUnit($orderUnit)
     {
-        $this->order_unit = $orderUnit;
+        $this->orderUnit = $orderUnit;
 
         return $this;
     }
@@ -345,11 +369,11 @@ class Product
     /**
      * Get order_unit
      *
-     * @return integer
+     * @return String
      */
     public function getOrderUnit()
     {
-        return $this->order_unit;
+        return $this->orderUnit;
     }
 
     /**
@@ -358,7 +382,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      * @return Product
      */
-    public function addStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function addStock(Stock $stocks)
     {
         $this->stocks[] = $stocks;
 
@@ -370,7 +394,7 @@ class Product
      *
      * @param \Vrbh\SiteBundle\Entity\Stock $stocks
      */
-    public function removeStock(\Vrbh\SiteBundle\Entity\Stock $stocks)
+    public function removeStock(Stock $stocks)
     {
         $this->stocks->removeElement($stocks);
     }
@@ -381,7 +405,7 @@ class Product
      * @param \Vrbh\SiteBundle\Entity\Stock $currentStock
      * @return Product
      */
-    public function setCurrentStock(\Vrbh\SiteBundle\Entity\Stock $currentStock = null)
+    public function setCurrentStock(Stock $currentStock = null)
     {
         $this->currentStock = $currentStock;
 
@@ -396,5 +420,51 @@ class Product
     public function getCurrentStock()
     {
         return $this->currentStock;
+    }
+
+    /**
+     * Set minStock
+     *
+     * @param integer $minStock
+     * @return Product
+     */
+    public function setMinStock($minStock)
+    {
+        $this->minStock = $minStock;
+
+        return $this;
+    }
+
+    /**
+     * Get minStock
+     *
+     * @return integer 
+     */
+    public function getMinStock()
+    {
+        return $this->minStock;
+    }
+
+    /**
+     * Set maxStock
+     *
+     * @param integer $maxStock
+     * @return Product
+     */
+    public function setMaxStock($maxStock)
+    {
+        $this->maxStock = $maxStock;
+
+        return $this;
+    }
+
+    /**
+     * Get maxStock
+     *
+     * @return integer 
+     */
+    public function getMaxStock()
+    {
+        return $this->maxStock;
     }
 }
