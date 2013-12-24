@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
@@ -66,12 +67,14 @@ class Product
 
     /**
 	 * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      * @Expose()
 	 */
     protected $updated;

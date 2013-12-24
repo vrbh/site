@@ -2,6 +2,7 @@
 namespace Vrbh\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
@@ -31,11 +32,13 @@ class UserOrgRequest
 
     /**
      * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $created;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $updated;
 

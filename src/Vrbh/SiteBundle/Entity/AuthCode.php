@@ -5,6 +5,7 @@ use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
@@ -32,11 +33,13 @@ class AuthCode extends BaseAuthCode
 
     /**
      * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $created;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $updated;
 

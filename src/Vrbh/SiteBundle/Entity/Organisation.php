@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
@@ -55,12 +56,14 @@ class Organisation
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Type("DateTime<'Y-m-d H:i:s'>")
      * @Expose()
 	 */
 	protected $updated;
