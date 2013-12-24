@@ -25,6 +25,7 @@ class User extends BaseUser
 	
     /**
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="user")
+     * @Expose();
      */	
 	protected $orgs;
 
