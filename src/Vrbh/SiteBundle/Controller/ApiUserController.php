@@ -14,7 +14,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-class ApiController extends Controller
+class ApiUserController extends Controller
 {
     /**
      * Get all information about the logged in user.
@@ -26,7 +26,25 @@ class ApiController extends Controller
      * @Method({"GET"})
      * @ApiDoc()
      */
-    public function getCurrentUser()
+    public function getCurrentUserAction()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if (!$user) {
+            return array('error', 'Not logged in?');
+        }
+        return array('user' => $user);
+    }
+
+    /**
+     * Get all organisations a user has access to, including the access level.
+     *
+     * @Rest\View
+     * @Route("/api/user/current/organisations")
+     * @Method({"GET"})
+     * @ApiDoc()
+     */
+    public function getCurrentUserOrgsAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
 
@@ -34,6 +52,7 @@ class ApiController extends Controller
             return array('error', 'Not logged in?');
         }
 
+        return array('organisations' => $user->getOrgs());
     }
 
     /**
@@ -62,6 +81,7 @@ class ApiController extends Controller
 	 * @Route("/api/user/{id}", requirements={"id" = "\d+"})
 	 * @Method({"GET"})
 	 * @return User requested user
+     * @throws NotFoundHttpException
 	 * @ApiDoc()	 
      */
     public function getAction($id)
@@ -86,6 +106,7 @@ class ApiController extends Controller
      * @Rest\View(statusCode=204)
 	 * @Route("/api/user/{id}", requirements={"id" = "\d+"})
 	 * @Method({"DELETE"})
+     * @throws NotFoundHttpException
 	 * @ApiDoc()	 
      */
     public function deleteAction($id)
@@ -98,27 +119,6 @@ class ApiController extends Controller
             throw new NotFoundHttpException('User not found');
         }
 
-        return array('user' => $user);
-    }	
-
-		
-    /**
-	 * Get organisation data
-     * @Rest\View
-	 * @Route("/api/organisation/{id}", requirements={"id" = "\d+"})
-	 * @Method({"GET"})
-	 * @ApiDoc()	 
-     */
-    public function getOrganisationAction($id)
-    {
-        $org = $this->getDoctrine()
-        ->getRepository('VrbhSiteBundle:Organisation')
-        ->find($id);
-
-        if (!$org instanceof Organisation) {
-            throw new NotFoundHttpException('Organisation not found');
-        }
-
-        return array('organisation' => $org);
-    }	
+        //return array('user' => $user);
+    }
 }

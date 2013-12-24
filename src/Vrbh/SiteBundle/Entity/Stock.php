@@ -72,7 +72,7 @@ class Stock
      *
      * @return Stock
      */
-    public function setProduct(\Vrbh\SiteBundle\Entity\Product $product = null)
+    public function setProduct(Product $product = null)
     {
         $this->product = $product;
     

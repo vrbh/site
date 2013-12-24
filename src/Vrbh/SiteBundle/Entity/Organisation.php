@@ -3,11 +3,16 @@ namespace Vrbh\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisations")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class Organisation
 {
@@ -15,50 +20,58 @@ class Organisation
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 	
     /**
-     * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="organisation")
+     * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="organisation", cascade={"remove"})
      */	
 	protected $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserOrgRequest", mappedBy="organisation", cascade={"remove"})
+     */
+    protected $userRequests;
 	
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="organisation", cascade={"remove"})
      */	
 	protected $products;
-	
-	
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orgsCreated")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
      */
 	protected $creator;
 	
-
-	
-	
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Expose()
 	 */
 	protected $name;
-	
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-		$this->products = new ArrayCollection();
-    }
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose()
 	 */
-	protected $updated;	
-	
+	protected $updated;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->userRequests = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
+
 	/**
 	 * @ORM\PrePersist
 	 */
@@ -74,7 +87,25 @@ class Organisation
 	public function setUpdatedAtValue()
 	{
 		$this->updated = new \DateTime();
-	}		
+	}
+
+
+    /**
+     * Check if a user is allowed to access this org.
+     * @param User $user
+     * @return bool
+     */
+    public function checkAllowed(User $user)
+    {
+        $found = false;
+        foreach ($this->getUsers() as $usr)
+        {
+            if ($usr->getUser()->getId() == $user->getId()) {
+                $found = true;
+            }
+        }
+        return $found;
+    }
 
     /**
      * Get id
@@ -115,7 +146,7 @@ class Organisation
      * @param \Vrbh\SiteBundle\Entity\UserOrg $users
      * @return Organisation
      */
-    public function addUser(\Vrbh\SiteBundle\Entity\UserOrg $users)
+    public function addUser(UserOrg $users)
     {
         $this->users[] = $users;
     
@@ -127,7 +158,7 @@ class Organisation
      *
      * @param \Vrbh\SiteBundle\Entity\UserOrg $users
      */
-    public function removeUser(\Vrbh\SiteBundle\Entity\UserOrg $users)
+    public function removeUser(UserOrg $users)
     {
         $this->users->removeElement($users);
     }
@@ -148,7 +179,7 @@ class Organisation
      * @param \Vrbh\SiteBundle\Entity\Product $products
      * @return Organisation
      */
-    public function addProduct(\Vrbh\SiteBundle\Entity\Product $products)
+    public function addProduct(Product $products)
     {
         $this->products[] = $products;
     
@@ -160,7 +191,7 @@ class Organisation
      *
      * @param \Vrbh\SiteBundle\Entity\Product $products
      */
-    public function removeProduct(\Vrbh\SiteBundle\Entity\Product $products)
+    public function removeProduct(Product $products)
     {
         $this->products->removeElement($products);
     }
@@ -230,7 +261,7 @@ class Organisation
      *
      * @return Organisation
      */
-    public function setCreator(\Vrbh\SiteBundle\Entity\User $creator = null)
+    public function setCreator(User $creator = null)
     {
         $this->creator = $creator;
     
@@ -245,5 +276,39 @@ class Organisation
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Add userRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $userRequests
+     *
+     * @return Organisation
+     */
+    public function addUserRequest(UserOrgRequest $userRequests)
+    {
+        $this->userRequests[] = $userRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove userRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $userRequests
+     */
+    public function removeUserRequest(UserOrgRequest $userRequests)
+    {
+        $this->userRequests->removeElement($userRequests);
+    }
+
+    /**
+     * Get userRequests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserRequests()
+    {
+        return $this->userRequests;
     }
 }

@@ -4,11 +4,14 @@ namespace Vrbh\SiteBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -16,14 +19,20 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 	
     /**
      * @ORM\OneToMany(targetEntity="UserOrg", mappedBy="user")
      */	
-	protected $orgs;	
-	
+	protected $orgs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserOrgRequest", mappedBy="user")
+     */
+    protected $orgRequests;
+
     /**
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="creator")
      */	
@@ -31,11 +40,13 @@ class User extends BaseUser
 	
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose
 	 */
 	protected $created;
 
 	/**
 	 * @ORM\Column(type="datetime")
+     * @Expose
 	 */
 	protected $updated;	
 	
@@ -61,6 +72,7 @@ class User extends BaseUser
         parent::__construct();
         
 		$this->orgs = new ArrayCollection();
+        $this->orgRequests = new ArrayCollection();
         $this->orgsCreated = new ArrayCollection();
     }
 
@@ -80,7 +92,7 @@ class User extends BaseUser
      * @param \Vrbh\SiteBundle\Entity\UserOrg $orgs
      * @return User
      */
-    public function addOrg(\Vrbh\SiteBundle\Entity\UserOrg $orgs)
+    public function addOrg(UserOrg $orgs)
     {
         $this->orgs[] = $orgs;
     
@@ -92,7 +104,7 @@ class User extends BaseUser
      *
      * @param \Vrbh\SiteBundle\Entity\UserOrg $orgs
      */
-    public function removeOrg(\Vrbh\SiteBundle\Entity\UserOrg $orgs)
+    public function removeOrg(UserOrg $orgs)
     {
         $this->orgs->removeElement($orgs);
     }
@@ -114,7 +126,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addOrgsCreated(\Vrbh\SiteBundle\Entity\Organisation $orgsCreated)
+    public function addOrgsCreated(Organisation $orgsCreated)
     {
         $this->orgsCreated[] = $orgsCreated;
     
@@ -126,7 +138,7 @@ class User extends BaseUser
      *
      * @param \Vrbh\SiteBundle\Entity\Organisation $orgsCreated
      */
-    public function removeOrgsCreated(\Vrbh\SiteBundle\Entity\Organisation $orgsCreated)
+    public function removeOrgsCreated(Organisation $orgsCreated)
     {
         $this->orgsCreated->removeElement($orgsCreated);
     }
@@ -187,5 +199,39 @@ class User extends BaseUser
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add orgRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests
+     *
+     * @return User
+     */
+    public function addOrgRequest(\Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests)
+    {
+        $this->orgRequests[] = $orgRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove orgRequests
+     *
+     * @param \Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests
+     */
+    public function removeOrgRequest(\Vrbh\SiteBundle\Entity\UserOrgRequest $orgRequests)
+    {
+        $this->orgRequests->removeElement($orgRequests);
+    }
+
+    /**
+     * Get orgRequests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrgRequests()
+    {
+        return $this->orgRequests;
     }
 }

@@ -1,0 +1,204 @@
+{% extends '::base.html.twig' %}
+{% block title %}Manage organisation || {{ org.name }}{% endblock %}
+{% block body %}
+    {% for product in org.products %}
+        <div class="col-7 col-sm-6 col-lg-4">
+            <h2>{{ product.name }}</h2>
+            {% if product.currentStock is null %}
+                <span class="label label-info">Stock unknown</span>
+            {% else %}
+                {% if product.currentStock.amount < product.minStock %}
+                    <span class="label label-danger">Stock under minimum stock</span>
+                {% elseif product.currentStock.amount == product.minStock %}
+                    <span class="label label-warning">Stock is minimum stock</span>
+                {% elseif product.currentStock.amount == product.maxStock %}
+                    <span class="label label-warning">Stock is maximum stock</span>
+                {% elseif product.currentStock.amount > product.maxStock %}
+                    <span class="label label-danger">Stock over maximum stock</span>
+                {% else %}
+                    <span class="label label-success">Stock OK</span>
+                {% endif %}
+            {% endif %}
+
+            <p>{{ product.description }}<hr class="hr_no_margin" />Minimum stock: {{ product.minStock }}<br />Maximum stock: {{ product.maxStock }}<br />
+                Current stock:
+                {% if product.currentStock is null %}
+                    Unknown
+                {% else %}
+                    {{ product.currentStock.amount }} on {{ product.currentStock.created|date }}
+                {% endif %}
+                <hr class="hr_no_margin" />
+                {% if product.stocks|length > 1 %}
+                    <a class="btn btn-default" data-show-history="show" data-show-id="{{ product.id }}" role="button">History</a>
+                {% else %}
+                    Not enough information to draw graph.
+                    <!-- Compensate for size of button?!? --><br /><br />
+                {% endif %}
+            <a class="btn btn-default" data-mark-ordered="done" role="button">Mark Ordered</a>
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="modal fade" id="startStocking" tabindex="-1" role="dialog" aria-labelledby="StartStock"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Stock information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Stock information is saved separately for each product. Once you are done, just close the
+                        window.</p>
+
+                    <span style="display: none" data-change-stock="form">
+                        <h4 data-change-stock="title"></h4>
+
+                        {% for product in org.products %}
+                            <p style="display: none" data-change-stock="info-{{ product.id }}">
+                                {{ product.description }}
+                                <span class="error" data-new-stock-error="{{ product.id }}">New stock amount is required, and needs to be zero or higher.</span>
+                                <input type="text" data-new-stock="{{ product.id }}" required="required"
+                                       class="form-control" placeholder="New stock (In {{ product.stockUnit }})"/>
+                            </p>
+                        {% endfor %}
+
+                        <button type="button" class="btn btn-default" data-save-state="cancel-current-product">Cancel
+                        </button>
+                        <button type="button" class="btn btn-default" data-save-state="save-current-product">Save
+                        </button>
+                    </span>
+
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped"
+                               data-change-stock="table">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Old stock</th>
+                                <th>New stock</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in org.products %}
+                                <tr data-row="stock" data-row-stock="{{ product.id }}"
+                                    data-row-name="{{ product.name }}" class="warning">
+                                    <td><img src="{{ asset('bundles/vrbhsite/ajax-loader.gif') }}" data-row-loading="{{ product.id }}" style="display: none;" />{{ product.name }}</td>
+                                    <td>
+                                        {% if product.currentStock is null %}
+                                            Stock unknown
+                                        {% else %}
+                                            {{ product.currentStock.amount }}
+                                        {% endif %}
+                                    </td>
+                                    <td data-new-stock="{{ product.id }}"></td>
+                                    <td><a href="" onclick="return false">Update stock</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    Legend?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/bundles/vrbhsite/products.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var createProduct = "{{ path('createProduct', {'org': org.id}) }}";
+        var createStock = "{{ path('createStock', {'org': org.id, "product": 999}) }}";
+    </script>
+{% endblock %}
+
+
+{% block sidebar %}
+    <div class="list-group">
+        <h4 class="list-group-item">Products</h4>
+        <span class="list-group-item" id="add-product">
+        <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewProduct">
+            Add new product
+        </button></span>
+        <span class="list-group-item" id="add-product">
+        <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#startStocking">
+            Count stock
+        </button></span>
+        <a class="list-group-item">Number of products: {{ org.products|length }}</a>
+    </div>
+
+
+    <div class="modal fade" id="createNewProduct" tabindex="-1" role="dialog" aria-labelledby="CreateNewProduct"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">New product</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Create a new product, linked to the current organisation. All fields are required.</p>
+
+                    <p>
+                        <span id="product-name-error" class="error">The name parameter is required.</span>
+                        <input type="text" data-save-state="create-new-product-name" required="required"
+                               class="form-control" placeholder="Product name"/>
+                        <span id="product-description-error" class="error">The description parameter is required.</span>
+                        <textarea data-save-state="create-new-product-description" required="required"
+                                  class="form-control" placeholder="Description"></textarea>
+                        <span id="product-stockunit-error" class="error"
+                              style>The stock unit parameter is required.</span>
+                        <select id="stock-unit" required="required" data-save-state="create-new-product-stock-unit"
+                                class="form-control">
+                            <option>stock unit</option>
+                            <option>1</option>
+                            <option>24 (Crate)</option>
+                            <option>box</option>
+                            <option>bread</option>
+                        </select>
+                        <span id="product-orderunit-error" class="error">The order unit parameter is required.</span>
+                        <select id="order-unit" data-save-state="create-new-product-order-unit" required="required"
+                                class="form-control">
+                            <option>order unit</option>
+                            <option>1</option>
+                            <option>24 (Crate)</option>
+                            <option>box</option>
+                            <option>bread</option>
+                        </select>
+                        <span id="product-min-stock-error" class="error">The minimum stock parameter is required.</span>
+                        <input type="number" required="required" class="form-control" placeholder="Minimum stock"
+                               data-save-state="create-new-product-min-stock"/>
+                        <span id="product-max-stock-error" class="error">The maximum stock parameter is required.</span>
+                        <input type="number" required="required" class="form-control" placeholder="Maximum stock"
+                               data-save-state="create-new-product-max-stock"/>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
+                            data-dismiss="modal">Close
+                    </button>
+                    <button type="button" class="btn btn-primary" data-save-state="create-new-product">Save changes
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+{% endblock %}

@@ -44,6 +44,7 @@ class SecurityController extends Controller
 
     /**
      * @Route("/oauth/v2/auth_login_check", name="oauth_check")
+
      * @Template()
      */
     public function loginCheckAction(Request $request)
