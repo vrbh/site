@@ -110,6 +110,9 @@ fos_oauth_server:
         user_provider: fos_user.user_manager
 
 jms_serializer:
+    handlers:
+        datetime:
+            default_format: "c" # ISO8601
     metadata:
         directories:
             FOSUB:
