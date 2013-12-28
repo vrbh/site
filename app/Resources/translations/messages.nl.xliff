@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file date="2013-12-28T20:33:49Z" source-language="en" target-language="nl" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="f893679bc50e371c927c82b1993c9eac8d5f7c18" resname="about.text">
+        <source>about.text</source>
+        <target state="new">about.text</target>
+        <jms:reference-file line="3">views/Default/about.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a257874a7ae4a63ded8dc7fa1c13f145ade604eb" resname="error.orgnameRequired">
+        <source>The organisation name is required.</source>
+        <target state="new">The organisation name is required.</target>
+        <jms:reference-file line="120">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="6efc45f1cd3d376ffe5a920f01ac9e56586f0cb5" resname="footer.text">
+        <source>footer.text</source>
+        <target state="new">footer.text</target>
+        <jms:reference-file line="102">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="be239214dc040726f5d9a0daf33f9c3dd4a9c58a" resname="general.approve">
+        <source>Approve</source>
+        <target state="new">Approve</target>
+        <jms:reference-file line="12">views/Default/OrganisationRequests.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3a06f98b660b43b7dbf56fe9e716d3af5c2291e4" resname="general.cancel">
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
+        <jms:reference-file line="76">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="17748c5d6df0f7f191a0e48f10da556c0d5dc147" resname="general.close">
+        <source>Close</source>
+        <target state="new">Close</target>
+        <jms:reference-file line="134">Resources/views/base.html.twig</jms:reference-file>
+        <jms:reference-file line="119">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+        <jms:reference-file line="205">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+        <jms:reference-file line="49">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c1b561eee135af01fd722ce8bbede7781aa53651" resname="general.deny">
+        <source>Deny</source>
+        <target state="new">Deny</target>
+        <jms:reference-file line="14">views/Default/OrganisationRequests.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="044763edfbae66060b3482324b9607ebec3aa7cb" resname="general.names.organisation">
+        <source>Organisation name</source>
+        <target state="new">Organisation name</target>
+        <jms:reference-file line="123">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="07c28252b7386c2ecae8a72e2a1c7a6ad96099b6" resname="general.on">
+        <source>on</source>
+        <target state="new">on</target>
+        <jms:reference-file line="31">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ed67d91d10724ca2917582ac7a43d35f3ce49d35" resname="general.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <jms:reference-file line="79">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+        <jms:reference-file line="207">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+        <jms:reference-file line="52">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="36a09642842d0a6dfaa0f533fcc040cb582295ad" resname="general.unknown">
+        <source>Unknown</source>
+        <target state="new">Unknown</target>
+        <jms:reference-file line="29">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f1bd4f440d5e05b3634882412f2f9db968db1316" resname="header.about">
+        <source>header.about</source>
+        <target>Over</target>
+        <jms:reference-file line="48">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4935d1048e0e4ab61633d3aea1f5d8e862fa3d10" resname="header.api">
+        <source>header.api</source>
+        <target>API</target>
+        <jms:reference-file line="50">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="77d54161fbe4d980ab29753c11ef4157c231b74a" resname="header.join">
+        <source>header.join</source>
+        <target>Aansluiten bij een organisatie</target>
+        <jms:reference-file line="53">Resources/views/base.html.twig</jms:reference-file>
+        <jms:reference-file line="114">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3da92472ff28f0fedf3ef5a3efdc8e4baf130950" resname="header.learn">
+        <source>header.learn</source>
+        <target>Meer</target>
+        <jms:reference-file line="80">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="009024ec128daf4008a5b0b308d55ae1222d1f11" resname="header.login">
+        <source>header.login</source>
+        <target>Login</target>
+        <jms:reference-file line="56">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c0eb7cd80aa4bd9db99c927331f5734f0c476fb9" resname="header.logout">
+        <source>header.logout</source>
+        <target>Uitloggen</target>
+        <jms:reference-file line="54">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9aa3b3c22ba42f78afbc3c9e793f7203984283a4" resname="header.name">
+        <source>header.name</source>
+        <target>Voorraad informatie</target>
+        <jms:reference-file line="43">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b9b575029875097adebd50dff5828460e422c03d" resname="header.register">
+        <source>header.register</source>
+        <target>Registreer</target>
+        <jms:reference-file line="57">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f1469865bffdf34ea7ae5b12ae38d97711b36556" resname="header.toggleleft">
+        <source>header.toggleleft</source>
+        <target>Linker menu</target>
+        <jms:reference-file line="72">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="854d8111f3b0d0f3dc64f516013f66b5844f0b48" resname="home.jumbo.index">
+        <source>Trying to get your stock in control?</source>
+        <target state="new">Trying to get your stock in control?</target>
+        <jms:reference-file line="45">SiteBundle/Controller/DefaultController.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9959d0e3f7d014817e004a681ac85154e469c167" resname="home.jumbo.text">
+        <source>Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.</source>
+        <target state="new">Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.</target>
+        <jms:reference-file line="47">SiteBundle/Controller/DefaultController.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="137a15d83446aa03391a35ae400dba9b0ed3b8b7" resname="manage.org">
+        <source>Manage organisation</source>
+        <target state="new">Manage organisation</target>
+        <jms:reference-file line="2">views/Default/OrganisationRequests.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="755e7686a6da92e4288abd3c14748293656071a2" resname="modal.join.info">
+        <source>Joining a organisation requires approval from the organisation administrator. The administrator will receive a email when you choose to join a organisation, and will approve or deny the request. You will receive a email on approval or denial.</source>
+        <target>Het aansluiten bij een bestaande organisatie moet worden goedgekeurd door een beheerder van die organisatie. De beheerder zal een email ontvangen wanneer jij er voor kiest om een je aan te sluiten bij een organisatie. Jij zal een email ontvangen wanneer de beheerder je verzoek goed of afkeurt.</target>
+        <jms:reference-file line="117">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="20866ed57747077b28c3a65e7048936177293c59" resname="modal.join.save">
+        <source>Send request</source>
+        <target state="new">Send request</target>
+        <jms:reference-file line="136">Resources/views/base.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7045eddf5e75f4705e807e7fd3fe5bbc589b210a" resname="modal.stock.amount.required">
+        <source>New stock amount is required, and needs to be zero or higher.</source>
+        <target state="new">New stock amount is required, and needs to be zero or higher.</target>
+        <jms:reference-file line="68">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1c0f693a9501287b1be0729b2ad55d9063831910" resname="modal.stock.new">
+        <source>New stock</source>
+        <target state="new">New stock</target>
+        <jms:reference-file line="90">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="96ed940e5b12318951a045306b78ee9b8af6785a" resname="modal.stock.new.stock">
+        <source>New stock (In %unit%)</source>
+        <target state="new">New stock (In %unit%)</target>
+        <jms:reference-file line="71">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="99b08b0afab5ee68e8a78bd77ddf99a8586122bd" resname="modal.stock.old">
+        <source>Old stock</source>
+        <target state="new">Old stock</target>
+        <jms:reference-file line="89">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="6d340aa2941203a84594fe2aacb2ce39515b11ae" resname="modal.stock.product">
+        <source>Product</source>
+        <target state="new">Product</target>
+        <jms:reference-file line="88">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e835f1924432edff1a65245ef94f370a7d1f4aa9" resname="modal.stock.stocking">
+        <source>Stock information</source>
+        <target state="new">Stock information</target>
+        <jms:reference-file line="55">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="309949d12db7689bbfb79a5455ce061c73104f64" resname="modal.stock.stocking.desc">
+        <source>Stock information is saved separately for each product. Once you are done, just close the
+                        window.</source>
+        <target>Stock information is saved separately for each product. Once you are done, just close the
+                        window.</target>
+        <jms:reference-file line="58">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="fe6d3035e12fdee7ac92d31c469121b2c35de372" resname="modal.stock.unknown">
+        <source>Stock unknown</source>
+        <target state="new">Stock unknown</target>
+        <jms:reference-file line="103">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="15275efe462dba88ac8353faa9f3ba2b43544fa6" resname="modal.stock.update">
+        <source>Update stock</source>
+        <target state="new">Update stock</target>
+        <jms:reference-file line="109">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f270bbb8c9e067d4ac559d3836fa09452b1872ac" resname="not.logged.in">
+        <source>Not logged in?</source>
+        <target state="new">Not logged in?</target>
+        <jms:reference-file line="25">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4deb553bda9e870747455e83d0d8c24f3a8138f4" resname="org.add.new.product">
+        <source>Add new product</source>
+        <target state="new">Add new product</target>
+        <jms:reference-file line="147">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b326cad43dcd48626731816b94ba721d0d9eb587" resname="org.count.stock">
+        <source>Count stock</source>
+        <target state="new">Count stock</target>
+        <jms:reference-file line="151">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b075a304ffe9e90848fd483dc14c7e5b0e248601" resname="org.create.new">
+        <source>Create new organisation</source>
+        <target state="new">Create new organisation</target>
+        <jms:reference-file line="7">views/Default/orgSidebar.html.twig</jms:reference-file>
+        <jms:reference-file line="37">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c9405627c466b03bfbcaf84bef19aeb059226d11" resname="org.create.new.desc">
+        <source>Create a new organisation. You will be assigned as the administrator of the specific organisation.</source>
+        <target state="new">Create a new organisation. You will be assigned as the administrator of the specific organisation.</target>
+        <jms:reference-file line="40">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="29efc60c78aa514a5d549248fc118c353910c123" resname="org.create.new.error.name">
+        <source>The name parameter is required.</source>
+        <target state="new">The name parameter is required.</target>
+        <jms:reference-file line="42">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3a7cafde424f49561661efe90eed71f3251e416c" resname="org.manage.requests">
+        <source>Manage requests</source>
+        <target state="new">Manage requests</target>
+        <jms:reference-file line="17">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="15df170a105e983913171790c72a97e63dbb9855" resname="org.name">
+        <source>Organisation name</source>
+        <target state="new">Organisation name</target>
+        <jms:reference-file line="44">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ea5b26a6176c756ea9426c129de39420fdc1d561" resname="org.new.product.desc">
+        <source>Create a new product, linked to the current organisation. All fields are required.</source>
+        <target state="new">Create a new product, linked to the current organisation. All fields are required.</target>
+        <jms:reference-file line="167">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="8bc1ee72e689f9f1fb92a8972c0a988dbdc48e5c" resname="org.new.product.error.desc">
+        <source>The description parameter is required.</source>
+        <target state="new">The description parameter is required.</target>
+        <jms:reference-file line="173">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1e2c306108bdbe20b03a0248e028ce18cb744cbb" resname="org.new.product.error.max.stock">
+        <source>The maximum stock parameter is required.</source>
+        <target state="new">The maximum stock parameter is required.</target>
+        <jms:reference-file line="198">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="50402f4d1bb37bf900c5c4a58ab829ed9fb1ccb6" resname="org.new.product.error.min.stock">
+        <source>The minimum stock parameter is required.</source>
+        <target state="new">The minimum stock parameter is required.</target>
+        <jms:reference-file line="195">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="322dd0b9e24e54e4bcdab1c71fe637bcdcd1b64b" resname="org.new.product.error.name">
+        <source>The name parameter is required.</source>
+        <target state="new">The name parameter is required.</target>
+        <jms:reference-file line="170">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e7b243931cc1aed6089db61ec8847342a31821c1" resname="org.new.product.error.order.unit">
+        <source>The order unit parameter is required.</source>
+        <target state="new">The order unit parameter is required.</target>
+        <jms:reference-file line="186">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4c2a09fd6b2281793e50c76fbf1fe84dc9143ea1" resname="org.new.product.error.stock.unit">
+        <source>The stock unit parameter is required.</source>
+        <target state="new">The stock unit parameter is required.</target>
+        <jms:reference-file line="177">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="56228a8776a40f6a30407cc6a001807eb78f7369" resname="org.new.product.title">
+        <source>New product</source>
+        <target state="new">New product</target>
+        <jms:reference-file line="164">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="03266aaf0803d14101279e2183d1e5ee4d6d9c67" resname="org.number.of.products">
+        <source>Number of products: %number%</source>
+        <target state="new">Number of products: %number%</target>
+        <jms:reference-file line="153">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="11fdb39fc264a9d0fd96aa17040dbd44026e6f82" resname="org.number.of.requests">
+        <source>Number of request: %requests%.</source>
+        <target state="new">Number of request: %requests%.</target>
+        <jms:reference-file line="5">views/Default/OrganisationRequests.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="5f3526548e55ece4ef47b4dfadc2dd5fde0f5b55" resname="org.requested.at">
+        <source>Requested at %at%</source>
+        <target state="new">Requested at %at%</target>
+        <jms:reference-file line="10">views/Default/OrganisationRequests.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="88afc24007e0bcd742b460e15a1c286ba4dc3ece" resname="organisation.history">
+        <source>History</source>
+        <target state="new">History</target>
+        <jms:reference-file line="36">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="46592a023cbc90a2e72e0686694d5f96400f4082" resname="organisation.mark.ordered">
+        <source>Mark Ordered</source>
+        <target state="new">Mark Ordered</target>
+        <jms:reference-file line="42">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0806419ff4e117d0dcc6ac49663d7253fd36be07" resname="organisation.not.enough.info">
+        <source>Not enough information to draw graph.</source>
+        <target state="new">Not enough information to draw graph.</target>
+        <jms:reference-file line="38">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cb0d12c394b7d489594e73c7cd107700d3fde9f7" resname="orgs.no.found">
+        <source>No organisations yet.</source>
+        <target state="new">No organisations yet.</target>
+        <jms:reference-file line="21">views/Default/orgSidebar.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7eb007574daff42ca38149f23ac16fd1dca011e7" resname="orgs.title">
+        <source>Manage organisation</source>
+        <target state="new">Manage organisation</target>
+        <jms:reference-file line="2">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="de07c552ea6b8f47a8dcc37d9c7ee226b10d7edc" resname="stock.current">
+        <source>Current stock:</source>
+        <target state="new">Current stock:</target>
+        <jms:reference-file line="27">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="32ee4d1d1d062e8b494fd230dd5ce11ddfdc57e0" resname="stock.is.max">
+        <source>Stock is maximum stock</source>
+        <target state="new">Stock is maximum stock</target>
+        <jms:reference-file line="15">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="86235c2aeb2cc98bec1aeaab9f288ab5ed90ff78" resname="stock.is.min">
+        <source>Stock is minimum stock</source>
+        <target state="new">Stock is minimum stock</target>
+        <jms:reference-file line="13">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a58a3cc4f79938f5b4473ad344eff74cb7970b38" resname="stock.is.ok">
+        <source>Stock OK</source>
+        <target state="new">Stock OK</target>
+        <jms:reference-file line="19">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="37dc18696819b9239139c3cc1ca1e8ac65af67bf" resname="stock.max">
+        <source>Maximum stock: %amount%</source>
+        <target state="new">Maximum stock: %amount%</target>
+        <jms:reference-file line="25">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1920a8c3d093877b99a95682b40b3c5d9cef9e21" resname="stock.min">
+        <source>Minimum stock: %amount%</source>
+        <target state="new">Minimum stock: %amount%</target>
+        <jms:reference-file line="24">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="144fa6953c71a42f49c97f8fe9449a5e61e1438a" resname="stock.over.max">
+        <source>Stock over maximum stock</source>
+        <target state="new">Stock over maximum stock</target>
+        <jms:reference-file line="17">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="81727b5a8be4ea08ef08fb5fcba9afe256cf2688" resname="stock.under.min">
+        <source>Stock under minimum stock</source>
+        <target state="new">Stock under minimum stock</target>
+        <jms:reference-file line="11">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7f77959f5650c1996b37ed308d87e77eb1056f13" resname="stock.unknown">
+        <source>Stock unknown</source>
+        <target state="new">Stock unknown</target>
+        <jms:reference-file line="8">views/Default/OrganisationDetails.html.twig</jms:reference-file>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
