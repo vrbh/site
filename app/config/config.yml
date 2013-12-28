@@ -151,3 +151,23 @@ fos_elastica:
                         provider: ~
                         finder: ~
                         listener: ~
+services:
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+
+jms_translation:
+    configs:
+        app:
+            dirs: [%kernel.root_dir%/../app/Resources/, %kernel.root_dir%/../src]
+            output_dir: %kernel.root_dir%/Resources/translations
+
+jms_i18n_routing:
+    default_locale: nl
+    locales: [nl, en]
+    strategy: custom
+    hosts:
+        nl: %domainname_nl%
+        en: %domainname_en%
+    redirect_to_host: true

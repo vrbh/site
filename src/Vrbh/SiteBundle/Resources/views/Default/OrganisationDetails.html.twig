@@ -1,40 +1,45 @@
 {% extends '::base.html.twig' %}
-{% block title %}Manage organisation || {{ org.name }}{% endblock %}
+{% block title %}{{ "orgs.title"|trans|desc('Manage organisation') }} || {{ org.name }}{% endblock %}
 {% block body %}
     {% for product in org.products %}
         <div class="col-7 col-sm-6 col-lg-4">
             <h2>{{ product.name }}</h2>
             {% if product.currentStock is null %}
-                <span class="label label-info">Stock unknown</span>
+                <span class="label label-info">{{ "stock.unknown"|trans|desc('Stock unknown') }}</span>
             {% else %}
                 {% if product.currentStock.amount < product.minStock %}
-                    <span class="label label-danger">Stock under minimum stock</span>
+                    <span class="label label-danger">{{ "stock.under.min"|trans|desc("Stock under minimum stock") }}</span>
                 {% elseif product.currentStock.amount == product.minStock %}
-                    <span class="label label-warning">Stock is minimum stock</span>
+                    <span class="label label-warning">{{ "stock.is.min"|trans|desc("Stock is minimum stock") }}</span>
                 {% elseif product.currentStock.amount == product.maxStock %}
-                    <span class="label label-warning">Stock is maximum stock</span>
+                    <span class="label label-warning">{{ "stock.is.max"|trans|desc("Stock is maximum stock") }}</span>
                 {% elseif product.currentStock.amount > product.maxStock %}
-                    <span class="label label-danger">Stock over maximum stock</span>
+                    <span class="label label-danger">{{ "stock.over.max"|trans|desc("Stock over maximum stock") }}</span>
                 {% else %}
-                    <span class="label label-success">Stock OK</span>
+                    <span class="label label-success">{{ "stock.is.ok"|trans|desc("Stock OK") }}</span>
                 {% endif %}
             {% endif %}
 
-            <p>{{ product.description }}<hr class="hr_no_margin" />Minimum stock: {{ product.minStock }}<br />Maximum stock: {{ product.maxStock }}<br />
-                Current stock:
-                {% if product.currentStock is null %}
-                    Unknown
-                {% else %}
-                    {{ product.currentStock.amount }} on {{ product.currentStock.created|date }}
-                {% endif %}
-                <hr class="hr_no_margin" />
-                {% if product.stocks|length > 1 %}
-                    <a class="btn btn-default" data-show-history="show" data-show-id="{{ product.id }}" role="button">History</a>
-                {% else %}
-                    Not enough information to draw graph.
-                    <!-- Compensate for size of button?!? --><br /><br />
-                {% endif %}
-            <a class="btn btn-default" data-mark-ordered="done" role="button">Mark Ordered</a>
+            <p>{{ product.description }}
+            <hr class="hr_no_margin"/>{{ "stock.min"|trans({"%amount%": product.minStock })|desc("Minimum stock: %amount%") }}
+            <br/>{{ "stock.max"|trans({"%amount%": product.maxStock })|desc("Maximum stock: %amount%") }}<br/>
+            <!-- TODO: Fix me with transcount -->
+            {{ "stock.current"|trans|desc('Current stock:') }}
+            {% if product.currentStock is null %}
+                {{ "general.unknown"|trans|desc("Unknown") }}
+            {% else %}
+                {{ product.currentStock.amount }} {{ "general.on"|trans|desc("on") }} {{ product.currentStock.created|date }}
+            {% endif %}
+            <hr class="hr_no_margin"/>
+            {% if product.stocks|length > 1 %}
+                <a class="btn btn-default" data-show-history="show" data-show-id="{{ product.id }}"
+                   role="button">{{ "organisation.history"|trans|desc("History") }}</a>
+            {% else %}
+                {{ "organisation.not.enough.info"|trans|desc("Not enough information to draw graph.") }}
+                <!-- Compensate for size of button?!? --><br/><br/>
+            {% endif %}
+            <a class="btn btn-default" data-mark-ordered="done"
+               role="button">{{ "organisation.mark.ordered"|trans|desc("Mark Ordered") }}</a>
             </p>
         </div>
     {% endfor %}
@@ -46,11 +51,12 @@
                 <div class="modal-header">
                     <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Stock information</h4>
+                    <h4 class="modal-title"
+                        id="myModalLabel">{{ "modal.stock.stocking"|trans|desc("Stock information") }}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Stock information is saved separately for each product. Once you are done, just close the
-                        window.</p>
+                    <p>{{ "modal.stock.stocking.desc"|trans|desc("Stock information is saved separately for each product. Once you are done, just close the
+                        window.") }}</p>
 
                     <span style="display: none" data-change-stock="form">
                         <h4 data-change-stock="title"></h4>
@@ -58,15 +64,19 @@
                         {% for product in org.products %}
                             <p style="display: none" data-change-stock="info-{{ product.id }}">
                                 {{ product.description }}
-                                <span class="error" data-new-stock-error="{{ product.id }}">New stock amount is required, and needs to be zero or higher.</span>
+                                <span class="error"
+                                      data-new-stock-error="{{ product.id }}">{{ "modal.stock.amount.required"|trans|desc("New stock amount is required, and needs to be zero or higher.") }}</span>
                                 <input type="text" data-new-stock="{{ product.id }}" required="required"
-                                       class="form-control" placeholder="New stock (In {{ product.stockUnit }})"/>
+                                       class="form-control"
+                                       placeholder="{{ "modal.stock.new.stock"|trans({"%unit%": product.stockUnit})|desc("New stock (In %unit%)") }}"/>
                             </p>
                         {% endfor %}
 
-                        <button type="button" class="btn btn-default" data-save-state="cancel-current-product">Cancel
+                        <button type="button" class="btn btn-default"
+                                data-save-state="cancel-current-product">{{ "general.cancel"|trans|desc("Cancel") }}
                         </button>
-                        <button type="button" class="btn btn-default" data-save-state="save-current-product">Save
+                        <button type="button" class="btn btn-default"
+                                data-save-state="save-current-product">{{ "general.save"|trans|desc("Save") }}
                         </button>
                     </span>
 
@@ -75,9 +85,9 @@
                                data-change-stock="table">
                             <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Old stock</th>
-                                <th>New stock</th>
+                                <th>{{ "modal.stock.product"|trans|desc("Product") }}</th>
+                                <th>{{ "modal.stock.old"|trans|desc("Old stock") }}</th>
+                                <th>{{ "modal.stock.new"|trans|desc("New stock") }}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -85,16 +95,18 @@
                             {% for product in org.products %}
                                 <tr data-row="stock" data-row-stock="{{ product.id }}"
                                     data-row-name="{{ product.name }}" class="warning">
-                                    <td><img src="{{ asset('bundles/vrbhsite/ajax-loader.gif') }}" data-row-loading="{{ product.id }}" style="display: none;" />{{ product.name }}</td>
+                                    <td><img src="{{ asset('bundles/vrbhsite/ajax-loader.gif') }}"
+                                             data-row-loading="{{ product.id }}"
+                                             style="display: none;"/>{{ product.name }}</td>
                                     <td>
                                         {% if product.currentStock is null %}
-                                            Stock unknown
+                                            {{ "modal.stock.unknown"|trans|desc("Stock unknown") }}
                                         {% else %}
                                             {{ product.currentStock.amount }}
                                         {% endif %}
                                     </td>
                                     <td data-new-stock="{{ product.id }}"></td>
-                                    <td><a href="" onclick="return false">Update stock</a></td>
+                                    <td><a href="" onclick="return false">{{ "modal.stock.update"|trans|desc("Update stock") }}</a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -104,7 +116,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
-                            data-dismiss="modal">Close
+                            data-dismiss="modal">{{ "general.close"|trans|desc("Close") }}
                     </button>
                 </div>
             </div>
@@ -132,13 +144,13 @@
         <h4 class="list-group-item">Products</h4>
         <span class="list-group-item" id="add-product">
         <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewProduct">
-            Add new product
+            {{ "org.add.new.product"|trans|desc("Add new product") }}
         </button></span>
         <span class="list-group-item" id="add-product">
         <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#startStocking">
-            Count stock
+            {{ "org.count.stock"|trans|desc("Count stock") }}
         </button></span>
-        <a class="list-group-item">Number of products: {{ org.products|length }}</a>
+        <a class="list-group-item">{{ "org.number.of.products"|trans({"%number%": org.products|length})|desc("Number of products: %number%") }}</a>
     </div>
 
 
@@ -149,20 +161,20 @@
                 <div class="modal-header">
                     <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">New product</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ "org.new.product.title"|trans|desc("New product") }}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Create a new product, linked to the current organisation. All fields are required.</p>
+                    <p>{{ "org.new.product.desc"|trans|desc("Create a new product, linked to the current organisation. All fields are required.") }}</p>
 
                     <p>
-                        <span id="product-name-error" class="error">The name parameter is required.</span>
+                        <span id="product-name-error" class="error">{{ "org.new.product.error.name"|trans|desc("The name parameter is required.") }}</span>
                         <input type="text" data-save-state="create-new-product-name" required="required"
                                class="form-control" placeholder="Product name"/>
-                        <span id="product-description-error" class="error">The description parameter is required.</span>
+                        <span id="product-description-error" class="error">{{ "org.new.product.error.desc"|trans|desc("The description parameter is required.") }}</span>
                         <textarea data-save-state="create-new-product-description" required="required"
                                   class="form-control" placeholder="Description"></textarea>
                         <span id="product-stockunit-error" class="error"
-                              style>The stock unit parameter is required.</span>
+                              style>{{ "org.new.product.error.stock.unit"|trans|desc("The stock unit parameter is required.") }}</span>
                         <select id="stock-unit" required="required" data-save-state="create-new-product-stock-unit"
                                 class="form-control">
                             <option>stock unit</option>
@@ -171,7 +183,7 @@
                             <option>box</option>
                             <option>bread</option>
                         </select>
-                        <span id="product-orderunit-error" class="error">The order unit parameter is required.</span>
+                        <span id="product-orderunit-error" class="error">{{ "org.new.product.error.order.unit"|trans|desc("The order unit parameter is required.") }}</span>
                         <select id="order-unit" data-save-state="create-new-product-order-unit" required="required"
                                 class="form-control">
                             <option>order unit</option>
@@ -180,19 +192,19 @@
                             <option>box</option>
                             <option>bread</option>
                         </select>
-                        <span id="product-min-stock-error" class="error">The minimum stock parameter is required.</span>
+                        <span id="product-min-stock-error" class="error">{{ "org.new.product.error.min.stock"|trans|desc("The minimum stock parameter is required.") }}</span>
                         <input type="number" required="required" class="form-control" placeholder="Minimum stock"
                                data-save-state="create-new-product-min-stock"/>
-                        <span id="product-max-stock-error" class="error">The maximum stock parameter is required.</span>
+                        <span id="product-max-stock-error" class="error">{{ "org.new.product.error.max.stock"|trans|desc("The maximum stock parameter is required.") }}</span>
                         <input type="number" required="required" class="form-control" placeholder="Maximum stock"
                                data-save-state="create-new-product-max-stock"/>
                     </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
-                            data-dismiss="modal">Close
+                            data-dismiss="modal">{{ "general.close"|trans|desc("Close") }}
                     </button>
-                    <button type="button" class="btn btn-primary" data-save-state="create-new-product">Save changes
+                    <button type="button" class="btn btn-primary" data-save-state="create-new-product">{{ "general.save"|trans|desc("Save") }}
                     </button>
                 </div>
             </div>

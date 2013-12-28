@@ -1,28 +1,29 @@
 <!-- ESI included from base, to sidebar -->
 <div class="list-group">
-{% if app.user %}
-    <h4 class="list-group-item">Organisations</h4>
-    <span class="list-group-item" id="add-org">
+    {% if app.user %}
+        <h4 class="list-group-item">Organisations</h4>
+        <span class="list-group-item" id="add-org">
     <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#createNewOrg">
-        Create new organisation
+        {{ "org.create.new"|trans|desc("Create new organisation") }}
     </button></span>
-    <script src="{{ asset('/bundles/vrbhsite/org.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('/bundles/vrbhsite/org.js') }}" type="text/javascript"></script>
 
-    {% for org in orgs %}
-        <span class="list-group-item">
+        {% for org in orgs %}
+            <span class="list-group-item">
         <a href="" data-org-select="select-org" data-org-id="{{ org.organisation.id }}"
-           >{{ org.organisation.name }} ({{ org.type }})</a>
-            {% if org.type == 'admin' %}
-                &bull;  <a href="{{ path('manage_request', {"id": org.organisation.id}) }}">Manage requests</a>
-            {% endif %}
+                >{{ org.organisation.name }} ({{ org.type }})</a>
+                {% if org.type == 'admin' %}
+                    &bull;  <a
+                        href="{{ path('manage_request', {"id": org.organisation.id}) }}">{{ "org.manage.requests"|trans|desc("Manage requests") }}</a>
+                {% endif %}
             </span>
-    {% else %}
-        <span class="list-group-item">No organisations yet.</span>
-    {% endfor %}
+        {% else %}
+            <span class="list-group-item">{{ "orgs.no.found"|trans|desc("No organisations yet.") }}</span>
+        {% endfor %}
 
-{% else %}
-    <span class="list-group-item">Not logged in?</span>
-{% endif %}
+    {% else %}
+        <span class="list-group-item">{{ "not.logged.in"|trans|desc("Not logged in?") }}</span>
+    {% endif %}
 </div>
 
 <!-- Modal -->
@@ -32,20 +33,23 @@
             <div class="modal-header">
                 <button type="button" data-save-state="create-new-org-cancel" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New organisation</h4>
+                <h4 class="modal-title"
+                    id="myModalLabel">{{ "org.create.new"|trans|desc("Create new organisation") }}</h4>
             </div>
             <div class="modal-body">
-                <p>Create a new organisation. You will be assigned as the administrator of the specific organisation.
-                    <span id="name-error" class="error" style="display: none;">The name parameter is required.</span>
+                <p>{{ "org.create.new.desc"|trans|desc("Create a new organisation. You will be assigned as the administrator of the specific organisation.") }}
+                    <span id="name-error" class="error"
+                          style="display: none;">{{ "org.create.new.error.name"|trans|desc("The name parameter is required.") }}</span>
                     <input type="text" data-save-state="create-new-org-name" required="required" class="form-control"
-                           placeholder="Organisation name"/>
+                           placeholder="{{ "org.name"|trans|desc("Organisation name") }}"/>
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-save-state="create-new-org-cancel"
-                        data-dismiss="modal">Close
+                        data-dismiss="modal">{{ "general.close"|trans|desc("Close") }}
                 </button>
-                <button type="button" class="btn btn-primary" data-save-state="create-new-org">Save changes</button>
+                <button type="button" class="btn btn-primary"
+                        data-save-state="create-new-org">{{ "general.save"|trans|desc("Save") }}</button>
             </div>
         </div>
         <!-- /.modal-content -->

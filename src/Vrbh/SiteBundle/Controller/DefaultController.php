@@ -41,8 +41,10 @@ class DefaultController extends Controller
         return $this->render('VrbhSiteBundle:Default:index.html.twig', array(
             'jumbo' => true,
             'jumbo_url' => $this->get('router')->generate('about'),
-            'jumbo_title' => 'Trying to get your stock in control?',
-            'jumbo_text' => 'Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.',
+            /** @Desc("Trying to get your stock in control?") **/
+            'jumbo_title' => $this->get('translator')->trans('home.jumbo.index'),
+            /** @Desc("Stock information helps controlling your stock and visalizing the available stock. With apps for iOS and Android everyone can simple check and register stock information. Based on the information new products can be ordered.") */
+            'jumbo_text' => $this->get('translator')->trans('home.jumbo.text'),
         ), $this->createResponse());
     }
 

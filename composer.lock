@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "26bda70cf125befe0de1f833fbe812c4",
+    "hash": "6a95fb301035fd86c98d4f35f8b990b0",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -359,12 +359,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "2196da9cd9fc72e343560fce818affbcfbdf93d0"
+                "reference": "d473423d6dd12b476d1507c97d45f2e59809cebf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/2196da9cd9fc72e343560fce818affbcfbdf93d0",
-                "reference": "2196da9cd9fc72e343560fce818affbcfbdf93d0",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d473423d6dd12b476d1507c97d45f2e59809cebf",
+                "reference": "d473423d6dd12b476d1507c97d45f2e59809cebf",
                 "shasum": ""
             },
             "require": {
@@ -395,7 +395,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -422,7 +422,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-12-23 05:23:06"
+            "time": "2013-12-28 16:10:52"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -745,12 +745,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "5439a613d6743567c31820145b8bd72c336185f0"
+                "reference": "7360231b4b615837cc61ec660dd10539df8e7d59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5439a613d6743567c31820145b8bd72c336185f0",
-                "reference": "5439a613d6743567c31820145b8bd72c336185f0",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/7360231b4b615837cc61ec660dd10539df8e7d59",
+                "reference": "7360231b4b615837cc61ec660dd10539df8e7d59",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-12-20 23:23:21"
+            "time": "2013-12-25 22:12:38"
         },
         {
             "name": "friendsofsymfony/elastica-bundle",
@@ -905,12 +905,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle.git",
-                "reference": "d9211165f56213f08a726ba7a83074b75e2a19e4"
+                "reference": "e9f96eec315e640d0d89840ed77b7e9268f7223d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/d9211165f56213f08a726ba7a83074b75e2a19e4",
-                "reference": "d9211165f56213f08a726ba7a83074b75e2a19e4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/e9f96eec315e640d0d89840ed77b7e9268f7223d",
+                "reference": "e9f96eec315e640d0d89840ed77b7e9268f7223d",
                 "shasum": ""
             },
             "require": {
@@ -960,7 +960,7 @@
                 "oauth2",
                 "server"
             ],
-            "time": "2013-12-18 20:10:16"
+            "time": "2013-12-26 13:07:47"
         },
         {
             "name": "friendsofsymfony/oauth2-php",
@@ -968,12 +968,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/oauth2-php.git",
-                "reference": "5405f3f027c0cd2bf312ee43d23f64aeb8c2e0d9"
+                "reference": "f5b6f7559e1c0bf91847050ddde2c3e5f66ae3f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/5405f3f027c0cd2bf312ee43d23f64aeb8c2e0d9",
-                "reference": "5405f3f027c0cd2bf312ee43d23f64aeb8c2e0d9",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/f5b6f7559e1c0bf91847050ddde2c3e5f66ae3f5",
+                "reference": "f5b6f7559e1c0bf91847050ddde2c3e5f66ae3f5",
                 "shasum": ""
             },
             "require": {
@@ -1011,7 +1011,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2013-11-11 13:21:10"
+            "time": "2013-12-26 09:15:50"
         },
         {
             "name": "friendsofsymfony/rest-bundle",
@@ -1096,12 +1096,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12"
+                "reference": "a02f6fe3553391a84041ca11f02b781b2560b05b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6596b9d754b6cb094e10470967ed7b51e2aa9e12",
-                "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/a02f6fe3553391a84041ca11f02b781b2560b05b",
+                "reference": "a02f6fe3553391a84041ca11f02b781b2560b05b",
                 "shasum": ""
             },
             "require": {
@@ -1156,7 +1156,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-12-16 16:36:36"
+            "time": "2013-12-26 16:09:25"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1261,6 +1261,236 @@
             "time": "2013-11-27 22:51:13"
         },
         {
+            "name": "jms/aop-bundle",
+            "version": "dev-master",
+            "target-dir": "JMS/AopBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSAopBundle.git",
+                "reference": "93f41ab85ed409430bc3bab2e0b7c7677f152aa8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSAopBundle/zipball/93f41ab85ed409430bc3bab2e0b7c7677f152aa8",
+                "reference": "93f41ab85ed409430bc3bab2e0b7c7677f152aa8",
+                "shasum": ""
+            },
+            "require": {
+                "jms/cg": "1.*",
+                "symfony/framework-bundle": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\AopBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Adds AOP capabilities to Symfony2",
+            "keywords": [
+                "annotations",
+                "aop"
+            ],
+            "time": "2013-07-29 09:34:26"
+        },
+        {
+            "name": "jms/cg",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/cg-library.git",
+                "reference": "3d2881f2faec15a632b2c7ad9646f836dd71ba21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/cg-library/zipball/3d2881f2faec15a632b2c7ad9646f836dd71ba21",
+                "reference": "3d2881f2faec15a632b2c7ad9646f836dd71ba21",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Toolset for generating PHP code",
+            "keywords": [
+                "code generation"
+            ],
+            "time": "2013-12-26 12:09:20"
+        },
+        {
+            "name": "jms/di-extra-bundle",
+            "version": "dev-master",
+            "target-dir": "JMS/DiExtraBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSDiExtraBundle.git",
+                "reference": "01029f6a19c5a4131b80878311cd44a990ff923a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/01029f6a19c5a4131b80878311cd44a990ff923a",
+                "reference": "01029f6a19c5a4131b80878311cd44a990ff923a",
+                "shasum": ""
+            },
+            "require": {
+                "jms/aop-bundle": ">=1.0.0,<1.2-dev",
+                "jms/metadata": "1.*",
+                "symfony/finder": "~2.1",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/orm": "*",
+                "jms/security-extra-bundle": "1.*",
+                "phpcollection/phpcollection": ">=0.1,<0.3-dev",
+                "sensio/framework-extra-bundle": "*",
+                "symfony/browser-kit": "*",
+                "symfony/class-loader": "*",
+                "symfony/form": "*",
+                "symfony/security-bundle": "*",
+                "symfony/twig-bundle": "*",
+                "symfony/validator": "*",
+                "symfony/yaml": "*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\DiExtraBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Allows to configure dependency injection using annotations",
+            "homepage": "http://jmsyst.com/bundles/JMSDiExtraBundle",
+            "keywords": [
+                "annotations",
+                "dependency injection"
+            ],
+            "time": "2013-10-02 11:10:43"
+        },
+        {
+            "name": "jms/i18n-routing-bundle",
+            "version": "dev-master",
+            "target-dir": "JMS/I18nRoutingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSI18nRoutingBundle.git",
+                "reference": "c58e4d99ae867f8b64a481c84cad89e1df03d1c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSI18nRoutingBundle/zipball/c58e4d99ae867f8b64a481c84cad89e1df03d1c6",
+                "reference": "c58e4d99ae867f8b64a481c84cad89e1df03d1c6",
+                "shasum": ""
+            },
+            "require": {
+                "jms/translation-bundle": "~1.0",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "require-dev": {
+                "jms/di-extra-bundle": "*",
+                "sensio/framework-extra-bundle": "<2.1.5",
+                "symfony/browser-kit": "<2.1.5",
+                "symfony/class-loader": "<2.1.5",
+                "symfony/css-selector": "<2.1.5",
+                "symfony/finder": "<2.1.5",
+                "symfony/form": "<2.1.5",
+                "symfony/framework-bundle": "<2.1.5",
+                "symfony/http-foundation": "<2.1.5",
+                "symfony/http-kernel": "<2.1.5",
+                "symfony/process": "<2.1.5",
+                "symfony/routing": "<2.1.5",
+                "symfony/twig-bundle": "<2.1.5",
+                "symfony/validator": "<2.1.5",
+                "symfony/yaml": "<2.1.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\I18nRoutingBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "This bundle allows you to create i18n routes.",
+            "homepage": "http://jmsyst.com/bundles/JMSI18nRoutingBundle",
+            "keywords": [
+                "multilanguage",
+                "routing",
+                "translation"
+            ],
+            "time": "2013-12-05 21:19:53"
+        },
+        {
             "name": "jms/metadata",
             "version": "dev-master",
             "source": {
@@ -1353,12 +1583,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "64d99274c2014cadac14406138d785126c10c312"
+                "reference": "cf70eea85b616175c96c525dde977ed5dceef26c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/64d99274c2014cadac14406138d785126c10c312",
-                "reference": "64d99274c2014cadac14406138d785126c10c312",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/cf70eea85b616175c96c525dde977ed5dceef26c",
+                "reference": "cf70eea85b616175c96c525dde977ed5dceef26c",
                 "shasum": ""
             },
             "require": {
@@ -1415,7 +1645,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2013-12-16 22:43:38"
+            "time": "2013-12-28 12:57:12"
         },
         {
             "name": "jms/serializer-bundle",
@@ -1486,6 +1716,80 @@
                 "xml"
             ],
             "time": "2013-12-05 14:36:11"
+        },
+        {
+            "name": "jms/translation-bundle",
+            "version": "dev-master",
+            "target-dir": "JMS/TranslationBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSTranslationBundle.git",
+                "reference": "8e17374e686f20e28fe00246f750030a47fbbbb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/8e17374e686f20e28fe00246f750030a47fbbbb2",
+                "reference": "8e17374e686f20e28fe00246f750030a47fbbbb2",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "0.9.2",
+                "symfony/console": "*",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "conflict": {
+                "twig/twig": "1.10.2"
+            },
+            "require-dev": {
+                "jms/di-extra-bundle": ">=1.1",
+                "sensio/framework-extra-bundle": "*",
+                "symfony/browser-kit": "*",
+                "symfony/class-loader": "*",
+                "symfony/css-selector": "*",
+                "symfony/finder": "*",
+                "symfony/form": "*",
+                "symfony/process": "*",
+                "symfony/security": "*",
+                "symfony/twig-bundle": "*",
+                "symfony/validator": "*",
+                "symfony/yaml": "*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\TranslationBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Puts the Symfony2 Translation Component on steroids",
+            "homepage": "http://jmsyst.com/bundles/JMSTranslationBundle",
+            "keywords": [
+                "extract",
+                "extraction",
+                "i18n",
+                "interface",
+                "multilanguage",
+                "translation",
+                "ui",
+                "webinterface"
+            ],
+            "time": "2013-11-28 23:11:37"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1564,12 +1868,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c9db00f8821b2cc7238732529f8d4007296a630c"
+                "reference": "e92cb54c24e990c505be1b4af82e962d55d092df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c9db00f8821b2cc7238732529f8d4007296a630c",
-                "reference": "c9db00f8821b2cc7238732529f8d4007296a630c",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/e92cb54c24e990c505be1b4af82e962d55d092df",
+                "reference": "e92cb54c24e990c505be1b4af82e962d55d092df",
                 "shasum": ""
             },
             "require": {
@@ -1623,7 +1927,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-12-14 13:52:08"
+            "time": "2013-12-26 13:24:17"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -1632,12 +1936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "4b6efc6631161f9ddb64aecfbcbc8d117a77df52"
+                "reference": "f65a9c99651f016f1cf794e1942096d74dcba411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/4b6efc6631161f9ddb64aecfbcbc8d117a77df52",
-                "reference": "4b6efc6631161f9ddb64aecfbcbc8d117a77df52",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/f65a9c99651f016f1cf794e1942096d74dcba411",
+                "reference": "f65a9c99651f016f1cf794e1942096d74dcba411",
                 "shasum": ""
             },
             "require": {
@@ -1698,7 +2002,46 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2013-12-16 15:47:21"
+            "time": "2013-12-28 10:30:51"
+        },
+        {
+            "name": "nikic/php-parser",
+            "version": "v0.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "a81cccff7f968ff6a78b5764e345db26d978f4a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/a81cccff7f968ff6a78b5764e345db26d978f4a4",
+                "reference": "a81cccff7f968ff6a78b5764e345db26d978f4a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPParser": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2012-07-07 20:23:25"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -1805,12 +2148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e"
+                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5144da9525d24346bf009ff28f10cbaa1f0f166e",
-                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/65f363ac44058796a8e1428cf41e6d92d8a75ddc",
+                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc",
                 "shasum": ""
             },
             "type": "library",
@@ -1840,7 +2183,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-12-05 15:25:07"
+            "time": "2013-12-25 11:17:50"
         },
         {
             "name": "ruflin/elastica",
@@ -1946,12 +2289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "27bd32449a198fc2be934ffd68300c107f71a6f2"
+                "reference": "be422913c4b115aaec7234cfe89e1eb3df518a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/27bd32449a198fc2be934ffd68300c107f71a6f2",
-                "reference": "27bd32449a198fc2be934ffd68300c107f71a6f2",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/be422913c4b115aaec7234cfe89e1eb3df518a87",
+                "reference": "be422913c4b115aaec7234cfe89e1eb3df518a87",
                 "shasum": ""
             },
             "require": {
@@ -1992,7 +2335,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2013-12-20 13:04:34"
+            "time": "2013-12-28 16:04:48"
         },
         {
             "name": "sensio/generator-bundle",
@@ -2484,12 +2827,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6387fc457792f38189bdd5729b500772bbddfa4d"
+                "reference": "27f3e0fc1efd1dbaf6d10598d148d7ec3070b51d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6387fc457792f38189bdd5729b500772bbddfa4d",
-                "reference": "6387fc457792f38189bdd5729b500772bbddfa4d",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/27f3e0fc1efd1dbaf6d10598d148d7ec3070b51d",
+                "reference": "27f3e0fc1efd1dbaf6d10598d148d7ec3070b51d",
                 "shasum": ""
             },
             "require": {
@@ -2525,7 +2868,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-12-10 10:23:00"
+            "time": "2013-12-27 14:37:02"
         },
         {
             "name": "willdurand/negotiation",
@@ -2831,12 +3174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8d770d8174ccb6ea917b0d1b766399571f4eb30e"
+                "reference": "9c3b7e28751ea8c4db694f6ea968ff96aa966eef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8d770d8174ccb6ea917b0d1b766399571f4eb30e",
-                "reference": "8d770d8174ccb6ea917b0d1b766399571f4eb30e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9c3b7e28751ea8c4db694f6ea968ff96aa966eef",
+                "reference": "9c3b7e28751ea8c4db694f6ea968ff96aa966eef",
                 "shasum": ""
             },
             "require": {
@@ -2900,7 +3243,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-12-21 11:33:26"
+            "time": "2013-12-28 17:02:18"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3119,6 +3462,9 @@
         "nelmio/api-doc-bundle": 20,
         "friendsofsymfony/oauth-server-bundle": 20,
         "friendsofsymfony/elastica-bundle": 20,
+        "jms/translation-bundle": 20,
+        "jms/di-extra-bundle": 20,
+        "jms/i18n-routing-bundle": 20,
         "phpunit/phpunit": 20
     },
     "platform": {

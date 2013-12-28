@@ -24,6 +24,10 @@ class AppKernel extends Kernel
 			new FOS\RestBundle\FOSRestBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
