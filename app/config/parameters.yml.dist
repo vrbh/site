@@ -15,5 +15,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     elastic_index:     dev
 
-    domainname_nl:     ~
-    domainname_en:     ~
+    domainname_nl:     nl.vrbh.local
+    domainname_en:     en.vrbh.local
