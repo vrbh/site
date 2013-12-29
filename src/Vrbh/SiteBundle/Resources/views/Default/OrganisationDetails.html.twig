@@ -38,8 +38,6 @@
                 {{ "organisation.not.enough.info"|trans|desc("Not enough information to draw graph.") }}
                 <!-- Compensate for size of button?!? --><br/><br/>
             {% endif %}
-            <a class="btn btn-default" data-mark-ordered="done"
-               role="button">{{ "organisation.mark.ordered"|trans|desc("Mark Ordered") }}</a>
             </p>
         </div>
     {% endfor %}
@@ -49,7 +47,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" data-save-state="create-new-product-cancel" class="close" data-dismiss="modal"
+                    <button type="button" data-save-state="start-stock-cancel" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
                     <h4 class="modal-title"
                         id="myModalLabel">{{ "modal.stock.stocking"|trans|desc("Stock information") }}</h4>
@@ -115,7 +113,88 @@
                     Legend?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-save-state="create-new-product-cancel"
+                    <button type="button" class="btn btn-default" data-save-state="start-stock-cancel"
+                            data-dismiss="modal">{{ "general.close"|trans|desc("Close") }}
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="startOrdering" tabindex="-1" role="dialog" aria-labelledby="StartOrder"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-save-state="start-order-cancel" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"
+                        id="myModalLabel">{{ "modal.stock.order"|trans|desc("Order information") }}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{ "modal.stock.order.desc"|trans|desc("Order information is saved separately for each product. Once you are done, just close the
+                        window.") }}</p>
+
+                    <span style="display: none" data-change-order="form">
+                        <h4 data-change-order="title"></h4>
+
+                        {% for product in org.products %}
+                            <p style="display: none" data-change-order="info-{{ product.id }}">
+                                {{ product.description }}
+                                <span class="error"
+                                      data-new-order-error="{{ product.id }}">{{ "modal.order.amount.required"|trans|desc("New order amount is required, and needs to be zero or higher.") }}</span>
+                                <input type="text" data-new-order="{{ product.id }}" required="required"
+                                       class="form-control"
+                                       placeholder="{{ "modal.stock.new.order"|trans({"%unit%": product.orderUnit})|desc("Order (In %unit%)") }}"/>
+                            </p>
+                        {% endfor %}
+
+                        <button type="button" class="btn btn-default"
+                                data-save-state="cancel-current-order">{{ "general.cancel"|trans|desc("Cancel") }}
+                        </button>
+                        <button type="button" class="btn btn-default"
+                                data-save-state="save-current-order">{{ "general.save"|trans|desc("Save") }}
+                        </button>
+                    </span>
+
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-bordered table-striped"
+                               data-change-order="table">
+                            <thead>
+                            <tr>
+                                <th>{{ "modal.stock.product"|trans|desc("Product") }}</th>
+                                <th>{{ "modal.order.currentStock"|trans|desc("Current stock") }}</th>
+                                <th>{{ "modal.order.ordered"|trans|desc("Ordered") }}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in org.products %}
+                                <tr data-row="order" data-row-order="{{ product.id }}"
+                                    data-row-name="{{ product.name }}" class="warning">
+                                    <td><img src="{{ asset('bundles/vrbhsite/ajax-loader.gif') }}"
+                                             data-row-loading="{{ product.id }}"
+                                             style="display: none;"/>{{ product.name }}</td>
+                                    <td>
+                                        {% if product.currentStock is null %}
+                                            {{ "modal.stock.unknown"|trans|desc("Stock unknown") }}
+                                        {% else %}
+                                            {{ product.currentStock.amount }}
+                                        {% endif %}
+                                    </td>
+                                    <td data-new-order="{{ product.id }}"></td>
+                                    <td><a href="" onclick="return false">{{ "modal.order.update"|trans|desc("Add order") }}</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    Legend?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-save-state="start-order-cancel"
                             data-dismiss="modal">{{ "general.close"|trans|desc("Close") }}
                     </button>
                 </div>
@@ -126,6 +205,8 @@
     </div>
     <!-- /.modal -->
 
+
+
 {% endblock %}
 
 
@@ -135,6 +216,7 @@
     <script type="text/javascript">
         var createProduct = "{{ path('createProduct', {'org': org.id}) }}";
         var createStock = "{{ path('createStock', {'org': org.id, "product": 999}) }}";
+        var createOrder = "{{ path('createOrder', {'org': org.id, "product": 999}) }}";
     </script>
 {% endblock %}
 
@@ -149,6 +231,10 @@
         <span class="list-group-item" id="add-product">
         <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#startStocking">
             {{ "org.count.stock"|trans|desc("Count stock") }}
+        </button></span>
+        <span class="list-group-item" id="add-product">
+        <button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#startOrdering">
+            {{ "org.create.order"|trans|desc("New order") }}
         </button></span>
         <a class="list-group-item">{{ "org.number.of.products"|trans({"%number%": org.products|length})|desc("Number of products: %number%") }}</a>
     </div>

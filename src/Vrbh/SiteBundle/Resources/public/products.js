@@ -1,19 +1,9 @@
 $(document).ready(function () {
 
-    $('[data-mark-ordered=done]').click(function(){
-        console.log("Mark ordered");
-        $(this).html('Ordered');
-        $(this).addClass('btn-success');
-        $(this).removeClass('btn-default');
-        return false;
-    });
+    var currentItemStock = null;
 
-
-    var currentItem = null;
-
-    $('[data-row=stock]').click(function()
-    {
-        currentItem = this;
+    $('[data-row=stock]').click(function () {
+        currentItemStock = this;
 
         var id = $(this).attr('data-row-stock');
         var name = $(this).attr('data-row-name');
@@ -28,15 +18,13 @@ $(document).ready(function () {
 
     });
 
-    var closeField = function()
-    {
-        if (currentItem == null)
-        {
+    var closeStockField = function () {
+        if (currentItemStock == null) {
             console.log("Tried closing item, but no field was open?!");
             return;
         }
 
-        var id = $(currentItem).attr('data-row-stock');
+        var id = $(currentItemStock).attr('data-row-stock');
 
         $('[data-change-stock=table]').show();
 
@@ -45,53 +33,50 @@ $(document).ready(function () {
         $('[data-change-stock=info-' + id + ']').hide();
         $('[data-new-stock-error=' + id + ']').hide(); // Make sure the error is hidden when closing the field ;).
 
-        currentItem = null;
+        currentItemStock = null;
     };
 
-    $('[data-save-state=save-current-product]').click(function(){
-        if (currentItem == null)
-        {
+    $('[data-save-state=save-current-product]').click(function () {
+        if (currentItemStock == null) {
             console.log("Clicked save, but no current item.");
             return;
         }
-        var id = $(currentItem).attr('data-row-stock');
+        var id = $(currentItemStock).attr('data-row-stock');
         var stock = $('[data-new-stock=' + id + ']').val();
 
-        if (isNaN(parseInt(stock)) || parseInt(stock) < 0)
-        {
+        if (isNaN(parseInt(stock)) || parseInt(stock) < 0) {
             $('[data-new-stock-error=' + id + ']').show();
-            setTimeout(function(){$('[data-new-stock-error=' + id + ']').hide();}, 5000);
+            setTimeout(function () {
+                $('[data-new-stock-error=' + id + ']').hide();
+            }, 5000);
 
             return;
         }
         $('[data-row-loading=' + id + ']').show();
-        $(currentItem).addClass('active');
-        $(currentItem).removeClass('warning');
+        $(currentItemStock).addClass('active');
+        $(currentItemStock).removeClass('warning');
 
-        var saving = currentItem;
+        var saving = currentItemStock;
 
         $('[data-new-stock=' + id + ']').html(stock);
 
         console.log("New stock: " + stock);
 
-        var errorHandler = function()
-        {
-            if (!saving)
-            {
+        var errorHandler = function () {
+            if (!saving) {
                 console.log("Missing saving var?!?");
                 return;
             }
             $(saving).addClass('danger');
             $(saving).removeClass('active');
-        }
+        };
         $.ajax({
             type: "POST",
             url: createStock.replace(999, id),
             data: {
                 amount: stock
             },
-            error: function()
-            {
+            error: function () {
                 console.log("error!");
                 $('[data-row-loading=' + $(saving).attr('data-row-stock') + ']').hide();
                 errorHandler();
@@ -102,23 +87,130 @@ $(document).ready(function () {
 
                 var id = resp.getResponseHeader("X-new-id");
 
-                if (!id)
-                {
+                if (!id) {
                     errorHandler();
                     return;
                 }
                 $(saving).removeClass('active');
+                $(saving).removeClass('danger');
                 $(saving).addClass('success');
             }
         });
 
-        closeField();
+        closeStockField();
     });
 
-    $('[data-save-state=cancel-current-product]').click(function(){
-        closeField();
+    $('[data-save-state=cancel-current-product]').click(function () {
+        closeStockField();
     });
 
+    var currentItemOrder = null;
+
+    $('[data-row=order]').click(function () {
+        currentItemOrder = this;
+
+        var id = $(this).attr('data-row-order');
+        var name = $(this).attr('data-row-name');
+
+        $('[data-change-order=table]').hide();
+
+        $('[data-change-order=title]').text('Change order for ' + name);
+
+        $('[data-change-order=form]').show();
+
+        $('[data-change-order=info-' + id + ']').show();
+
+    });
+
+    var closeStockField = function () {
+        if (currentItemOrder == null) {
+            console.log("Tried closing item, but no field was open?!");
+            return;
+        }
+
+        var id = $(currentItemOrder).attr('data-row-order');
+
+        $('[data-change-order=table]').show();
+
+        $('[data-change-order=form]').hide();
+
+        $('[data-change-order=info-' + id + ']').hide();
+        $('[data-new-order-error=' + id + ']').hide(); // Make sure the error is hidden when closing the field ;).
+
+        currentItemOrder = null;
+    };
+
+    $('[data-save-state=save-current-order]').click(function () {
+        if (currentItemOrder == null) {
+            console.log("Clicked save, but no current item.");
+            return;
+        }
+        var id = $(currentItemOrder).attr('data-row-order');
+        var order = $('[data-new-order=' + id + ']').val();
+
+        if (isNaN(parseInt(order)) || parseInt(order) < 0) {
+            $('[data-new-order-error=' + id + ']').show();
+            setTimeout(function () {
+                $('[data-new-order-error=' + id + ']').hide();
+            }, 5000);
+
+            return;
+        }
+        $('[data-row-loading=' + id + ']').show();
+        $(currentItemOrder).addClass('active');
+        $(currentItemOrder).removeClass('warning');
+
+        var saving = currentItemOrder;
+
+        $('[data-new-order=' + id + ']').html(order);
+
+        console.log("New order: " + order);
+
+        var errorHandler = function () {
+            if (!saving) {
+                console.log("Missing saving var?!?");
+                return;
+            }
+            $(saving).addClass('danger');
+            $(saving).removeClass('active');
+        };
+        $.ajax({
+            type: "POST",
+            url: createOrder.replace(999, id),
+            data: {
+                amount: order
+            },
+            error: function () {
+                console.log("error!");
+                $('[data-row-loading=' + $(saving).attr('data-row-order') + ']').hide();
+                errorHandler();
+            },
+            success: function (data, textStatus, resp) {
+
+                $('[data-row-loading=' + $(saving).attr('data-row-order') + ']').hide();
+
+                var id = resp.getResponseHeader("X-new-id");
+
+                if (!id) {
+                    errorHandler();
+                    return;
+                }
+                $(saving).removeClass('active');
+                $(saving).removeClass('danger');
+                $(saving).addClass('success');
+            }
+        });
+
+        closeStockField();
+    });
+
+    $('[data-save-state=cancel-current-order]').click(function () {
+        closeStockField();
+    });
+
+    /**
+     * Create a new product.
+     */
     $('[data-save-state=create-new-product]').click(function () {
 
         $('[data-save-state=create-product-org]').attr('disabled', 'disabled');
@@ -199,8 +291,7 @@ $(document).ready(function () {
                 success: function (data, textStatus, resp) {
                     var id = resp.getResponseHeader("X-new-id");
 
-                    if (!id)
-                    {
+                    if (!id) {
                         alert('Something went wrong...');
                     }
 

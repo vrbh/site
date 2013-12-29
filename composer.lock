@@ -1936,12 +1936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "f65a9c99651f016f1cf794e1942096d74dcba411"
+                "reference": "6038fe842f4031f720acec3d5ff2aa941517f7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/f65a9c99651f016f1cf794e1942096d74dcba411",
-                "reference": "f65a9c99651f016f1cf794e1942096d74dcba411",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/6038fe842f4031f720acec3d5ff2aa941517f7c4",
+                "reference": "6038fe842f4031f720acec3d5ff2aa941517f7c4",
                 "shasum": ""
             },
             "require": {
@@ -2002,7 +2002,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2013-12-28 10:30:51"
+            "time": "2013-12-28 17:55:06"
         },
         {
             "name": "nikic/php-parser",
@@ -3174,12 +3174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9c3b7e28751ea8c4db694f6ea968ff96aa966eef"
+                "reference": "462e011ad223b6fe7c13d9710f8a49d393b508a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9c3b7e28751ea8c4db694f6ea968ff96aa966eef",
-                "reference": "9c3b7e28751ea8c4db694f6ea968ff96aa966eef",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/462e011ad223b6fe7c13d9710f8a49d393b508a8",
+                "reference": "462e011ad223b6fe7c13d9710f8a49d393b508a8",
                 "shasum": ""
             },
             "require": {
@@ -3243,7 +3243,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-12-28 17:02:18"
+            "time": "2013-12-29 07:30:13"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

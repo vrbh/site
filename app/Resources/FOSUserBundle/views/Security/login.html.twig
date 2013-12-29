@@ -1,7 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
-{% block title %}Login{% endblock %}
+{% block title %}{{ "header.login"|trans({}, "messages") }}{% endblock %}
 {% block fos_user_content %}
 {% if error %}
     <div>{{ error|trans }}</div>

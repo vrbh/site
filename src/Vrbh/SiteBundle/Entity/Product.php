@@ -60,6 +60,11 @@ class Product
     protected $stocks;
 
     /**
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="product")
+     */
+    protected $orders;
+
+    /**
      * @ORM\OneToOne(targetEntity="Stock")
      * @ORM\JoinColumn(name="current_stock_id", referencedColumnName="id")
      */
@@ -469,5 +474,39 @@ class Product
     public function getMaxStock()
     {
         return $this->maxStock;
+    }
+
+    /**
+     * Add orders
+     *
+     * @param \Vrbh\SiteBundle\Entity\Order $orders
+     *
+     * @return Product
+     */
+    public function addOrder(Order $orders)
+    {
+        $this->orders[] = $orders;
+    
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param \Vrbh\SiteBundle\Entity\Order $orders
+     */
+    public function removeOrder(Order $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

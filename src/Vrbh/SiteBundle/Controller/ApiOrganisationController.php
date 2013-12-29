@@ -17,6 +17,7 @@ use Vrbh\SiteBundle\Entity\Product;
 use Vrbh\SiteBundle\Entity\User;
 use Vrbh\SiteBundle\Entity\UserOrgRequest;
 use Vrbh\SiteBundle\Entity\Stock;
+use Vrbh\SiteBundle\Entity\Order;
 use Vrbh\SiteBundle\Entity\Organisation;
 use Vrbh\SiteBundle\Entity\UserOrg;
 
@@ -37,7 +38,7 @@ class ApiOrganisationController extends Controller
      * @Route("/api/organisation/{org}", requirements={"org" = "\d+"}, name="get_organisation")
      * @Method({"GET"})
      * @throws NotFoundHttpException
-     * @ApiDoc()
+     * @ApiDoc(output="Vrbh\SiteBundle\Entity\Organisation")
      * @return organisation
      */
     public function getOrganisationAction(Organisation $org)
@@ -57,7 +58,7 @@ class ApiOrganisationController extends Controller
      * @Route("/api/organisation/{org}/products", requirements={"org" = "\d+"}, name="get_products")
      * @Method({"GET"})
      * @throws NotFoundHttpException
-     * @ApiDoc()
+     * @ApiDoc(output="Vrbh\SiteBundle\Entity\Product")
      * @return product
      */
     public function getOrganisationProductsAction(Organisation $org)
@@ -148,11 +149,39 @@ class ApiOrganisationController extends Controller
     }
 
     /**
+     * Create a new order entry for a product
+     * @param Organisation $org organisation id
+     * @param Product $product product id
+     * @Route("/api/organisation/{org}/products/{product}/order", requirements={"org" = "\d+", "product" = "\d+"})
+     * @Method({"POST"})
+     * @ApiDoc()
+     * @throws NotFoundHttpException
+     * @return view
+     */
+    public function createNewOrderAction(Organisation $org, Product $product)
+    {
+        return $this->createNewOrder($org, $product);
+    }
+
+    /**
+     * Create a new order entry for a product from the website
+     * @param Organisation $org organisation id
+     * @param Product $product product id
+     * @Route("/internal/api/organisation/{org}/products/{product}/order", requirements={"org" = "\d+", "product" = "\d+"}, name="createOrder")
+     * @Method({"POST"})
+     * @return view
+     */
+    public function createNewInternalOrderAction(Organisation $org, Product $product)
+    {
+        return $this->createNewOrder($org, $product);
+    }
+
+    /**
      * Get all organisations. This requires ROLE_ADMIN.
      * @Rest\View
      * @Route("/api/organisation/all")
      * @Method({"GET"})
-     * @ApiDoc()
+     * @ApiDoc(output="Vrbh\SiteBundle\Entity\Organisation")
      */
     public function getOrganisationsAction()
     {
@@ -452,6 +481,41 @@ class ApiOrganisationController extends Controller
         $response->setStatusCode(201);
 
         $response->headers->set('X-new-id', $stock->getId());
+
+        return $response;
+    }
+
+    /**
+     * Create a new order item for the chosen product.
+     *
+     * @param $org
+     * @param $product
+     * @throws NotFoundHttpException
+     * @return Response
+     */
+    private function createNewOrder(Organisation $org, Product $product)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $request = $this->get('request');
+
+        if (!($product instanceof Product) || $product->getOrganisation()->getId() != $org->getId()) {
+            throw new NotFoundHttpException('Product not found');
+        }
+
+        $order = new Order();
+        $order->setAmount((int)$request->request->get('amount'));
+        $order->setProduct($product);
+        $product->addOrder($order);
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($order);
+        $em->persist($product);
+        $em->flush();
+
+        $response = new Response();
+        $response->setStatusCode(201);
+
+        $response->headers->set('X-new-id', $order->getId());
 
         return $response;
     }

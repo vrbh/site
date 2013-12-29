@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% block title %}{{ "header.name"|trans() }}{% endblock %}
 {% block body %}
     {% if app.user %}
     {% else %}
