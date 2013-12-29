@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2013-12-29T16:41:22Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2013-12-29T16:43:16Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -150,22 +150,22 @@
       </trans-unit>
       <trans-unit id="212f59c37ed9aed09a1938b211b585896899070d" resname="modal.order.amount.required">
         <source>New order amount is required, and needs to be zero or higher.</source>
-        <target state="new">New order amount is required, and needs to be zero or higher.</target>
+        <target>New order amount is required, and needs to be zero or higher.</target>
         <jms:reference-file line="147">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="ae05c25bbac12076ef759928bdf9523e23026f2f" resname="modal.order.currentStock">
         <source>Current stock</source>
-        <target state="new">Current stock</target>
+        <target>Current stock</target>
         <jms:reference-file line="168">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="8f639e1047be37f79fde5e3c9fb8f05bc087a73e" resname="modal.order.ordered">
         <source>Ordered</source>
-        <target state="new">Ordered</target>
+        <target>Ordered</target>
         <jms:reference-file line="169">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5b5bd2c178775ed4761fcb90498928dc9b9a0700" resname="modal.order.update">
         <source>Add order</source>
-        <target state="new">Add order</target>
+        <target>Add order</target>
         <jms:reference-file line="188">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="7045eddf5e75f4705e807e7fd3fe5bbc589b210a" resname="modal.stock.amount.required">
@@ -180,7 +180,7 @@
       </trans-unit>
       <trans-unit id="63d84e64e62e4e8123939f0a3b366e2c40feaf63" resname="modal.stock.new.order">
         <source>Order (In %unit%)</source>
-        <target state="new">Order (In %unit%)</target>
+        <target>Order (In %unit%)</target>
         <jms:reference-file line="150">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="96ed940e5b12318951a045306b78ee9b8af6785a" resname="modal.stock.new.stock">
@@ -195,13 +195,13 @@
       </trans-unit>
       <trans-unit id="05b1704c895f729d88f719df6980429584449ddc" resname="modal.stock.order">
         <source>Order information</source>
-        <target state="new">Order information</target>
+        <target>Order information</target>
         <jms:reference-file line="134">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b6d4cced4a306eee48c1c2cba2d2a746babba51d" resname="modal.stock.order.desc">
         <source>Order information is saved separately for each product. Once you are done, just close the
                         window.</source>
-        <target state="new">Order information is saved separately for each product. Once you are done, just close the
+        <target>Order information is saved separately for each product. Once you are done, just close the
                         window.</target>
         <jms:reference-file line="137">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
@@ -287,7 +287,7 @@
       </trans-unit>
       <trans-unit id="419d1882d36415030ed0b0f160ca1ed86bb511aa" resname="org.create.order">
         <source>New order</source>
-        <target state="new">New order</target>
+        <target>New order</target>
         <jms:reference-file line="237">views/Default/OrganisationDetails.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="3a7cafde424f49561661efe90eed71f3251e416c" resname="org.manage.requests">
